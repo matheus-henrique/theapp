@@ -4,6 +4,8 @@ import { NavController } from 'ionic-angular';
 
 import { TempoRealService } from './temporeal.service';
 
+import { ConfiguracoesComponent } from '../configuracoes/configuracoes.component';
+
 declare var google;
 
 @Component({
@@ -37,6 +39,11 @@ export class TempoReal implements OnInit{
 	 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
 
+  }
+
+
+  abrirConfiguracoes(){
+  	this.navCtrl.push(ConfiguracoesComponent);
   }
 
 
