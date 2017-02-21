@@ -4,9 +4,9 @@
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-searchbar
-      placeholder="Digite o numero da linha ou prefixo"
+      placeholder="Digite o numero da linha"
       [showCancelButton]="shouldShowCancel"
-      (ionInput)="onInput($event)"
+      (ionInput)="veiculoEspecifico($event)"
       (ionCancel)="onCancel($event)">
     </ion-searchbar>
   </ion-navbar>
@@ -39,5 +39,10 @@
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
 
 <ion-content>
+ <ion-fab right top (click)="atualizar()">
+      <button ion-fab class="fab-map">
+        <ion-icon name='refresh'></ion-icon>
+      </button>
+  </ion-fab>
   <div #map id="map"></div>
 </ion-content>

@@ -6,6 +6,59 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+	<ion-list>
+	<ion-list-header>
+    	Sudeste
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of sudeste">
+	    <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	<ion-list-header>
+    	Sul
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of sul">
+	    <ion-icon style="color : rgb(255,255,0)" name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	<ion-list-header>
+    	Leste
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of leste">
+	    <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	<ion-list-header>
+    	Norte
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of norte">
+	    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	<ion-list-header>
+    	Terminais - Sudeste
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of terminal">
+	    <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	<ion-list-header>
+    	Outros
+  	</ion-list-header>
+	 <ion-item *ngFor="let item of outros">
+	    <ion-icon name="bus" item-left></ion-icon>
+	    	 {{item.Numero}} -  {{item.Denomicao}}
+	  </ion-item>
+	</ion-list>
 </ion-content>

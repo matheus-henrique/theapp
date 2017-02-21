@@ -5,6 +5,7 @@ import { NavController } from 'ionic-angular';
 import { TempoRealService } from './temporeal.service';
 
 import { ConfiguracoesComponent } from '../configuracoes/configuracoes.component';
+import { ReclamacaoComponent } from '../reclamacoes/reclamacoes.component';
 
 declare var google;
 
@@ -17,7 +18,7 @@ export class TempoReal implements OnInit{
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
 	_veiculos: any;
-	_marker : any;
+	_marker = [];
 	mapOptions = {
 	      center: new google.maps.LatLng(-5.0782647, -42.7940927),
 	      zoom: 15,
@@ -43,17 +44,24 @@ export class TempoReal implements OnInit{
 
 
   abrirConfiguracoes(){
-  	this.navCtrl.push(ConfiguracoesComponent);
+  	this.navCtrl.push(ReclamacaoComponent);
+  }
+
+
+  veiculoEspecifico(ev){
+  		var valor = ev.target.value;
+  		setTimeout(this._temposervice.veiculo_especifico_tempo_real(valor)
+  			.subscribe(res => console.log(res)),5000)
+
   }
 
 
     mostrarVeiculos(veiculos){
   		this._veiculos = veiculos;
   		var content2 : any;
-  		console.log(veiculos);
   		for(let i = 0; i < veiculos.length; i++){
   			for(let y = 0; y < veiculos[i].Linha.Veiculos.length; y++){
-  				this._marker = new google.maps.Marker({
+  				let _markerpoint = new google.maps.Marker({
 				    position: {lat: parseFloat(veiculos[i].Linha.Veiculos[y].Lat), lng: parseFloat(veiculos[i].Linha.Veiculos[y].Long)},
 				    map: this.map,
 				    title: 'Hello World!'
@@ -68,17 +76,28 @@ export class TempoReal implements OnInit{
 				    content: content2
 				});
 
-				this._marker.setMap(this.map);
-
-				google.maps.event.addListener(this._marker,'click', (function(marker,content,infowindow){ 
+				this._marker.push(_markerpoint);
+				google.maps.event.addListener(_markerpoint,'click', (function(marker,content,infowindow){ 
 			        return function() {
 			           infowindow.setContent(content);
 			           infowindow.open(this.map,marker);
 			        };
-			    })(this._marker,content2,infowindow)); 
+			    })(_markerpoint,content2,infowindow)); 
 			  	
   			}
   		}
+  	}
+
+
+
+  	atualizar(){
+  		console.log("Entrei");
+  		for(let i = 0; i < this._marker.length; i++){
+  				this._marker[i].setMap(null);
+  		}
+
+  		this._temposervice.todos_veiculos_tempo_real()
+	 		.subscribe(res => this.mostrarVeiculos(res))
   	}
 
 
