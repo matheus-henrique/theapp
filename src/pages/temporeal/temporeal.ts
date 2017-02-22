@@ -57,20 +57,54 @@ export class TempoReal implements OnInit{
 
 
     mostrarVeiculos(veiculos){
+    	let date = new Date();
+    	let minuto = date.getMinutes();
+    	console.log(minuto);
   		this._veiculos = veiculos;
+  		let texto : any;
   		var content2 : any;
+  		let img_cadeirante : any;
   		for(let i = 0; i < veiculos.length; i++){
-  			for(let y = 0; y < veiculos[i].Linha.Veiculos.length; y++){
+  			for(let y = 0; y < veiculos[i].Veiculos.length; y++){
   				let _markerpoint = new google.maps.Marker({
-				    position: {lat: parseFloat(veiculos[i].Linha.Veiculos[y].Lat), lng: parseFloat(veiculos[i].Linha.Veiculos[y].Long)},
+				    position: {lat: parseFloat(veiculos[i].Veiculos[y].Lat), lng: parseFloat(veiculos[i].Veiculos[y].Long)},
 				    map: this.map,
 				    title: 'Hello World!'
 				    // icon: '/assets/icon/icon.png'
 			  	});
-  				content2 = veiculos[i].Linha.CodigoLinha + " " + veiculos[i].Linha.Denomicao + "<br>" +
-  					"Codigo do Veiculo : " + veiculos[i].Linha.Veiculos[y].CodigoVeiculo + "<br>" + 
-  					"Origem : " + veiculos[i].Linha.Origem + "<br>" +
-  					"Retorno : " + veiculos[i].Linha.Retorno;
+
+			  	//let visto_por_ultimo = parseInt(minuto.toString()) - parseInt(veiculos[i].Veiculos[y].Hora.substr(4,5));
+			  	//console.log(veiculos[i].Veiculos[y].CodigoVeiculo + " " + visto_por_ultimo)
+			  	let d = new Date();
+			  	let teste = veiculos[i].Veiculos[y].Hora.substr(0,2);
+
+			  	let teste2 = veiculos[i].Veiculos[y].Hora.substr(3,2);
+			  	let teste3 = veiculos[i].Veiculos[y].Hora.substr(6,2);
+			  	d.setHours(d.getHours() - teste);
+			  	d.setMinutes(d.getMinutes() - teste2);
+			  	d.setSeconds(d.getSeconds() - teste3);
+			  	if(d.getHours() > 0){
+			  		texto = "Há "+ d.getHours() + " Horas e "+ d.getMinutes() + " minuto(s) atrás";
+			  	}
+			  	else{
+				  	if(d.getMinutes() > 0){
+				  		texto = "Há " + d.getMinutes() + " minuto(s) atrás";
+				  	}else{
+				  		texto = "Há 30 segundos atrás";
+				  	}
+
+			  	}
+			  	
+			  	if(veiculos[i].Veiculos[y].Cadeirante){
+			  		img_cadeirante = "http://pessoascomdeficiencia.com.br/site/wp-content/uploads/2016/04/unnamed.jpg"
+			  	}else{
+			  		img_cadeirante = "http://2.bp.blogspot.com/_Xo1nI_2EICc/TK0PNesxoII/AAAAAAAABVI/g8Q51G7wXp8/s1600/naoentra.jpg"
+			  	}
+  				content2 = veiculos[i].CodigoLinha + " " + veiculos[i].Denomicao + "  <img src='"+img_cadeirante+"' width='20'/>"+"<br>" +
+  					"Codigo do Veiculo : " + veiculos[i].Veiculos[y].CodigoVeiculo + "<br>" + 
+  					"Origem : " + veiculos[i].Origem + "<br>" +
+  					"Retorno : " + veiculos[i].Retorno + "<br>" +
+  					"Visto por ultimo : " + texto;
 			  	
 			  	var infowindow = new google.maps.InfoWindow({
 				    content: content2

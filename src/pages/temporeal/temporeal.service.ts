@@ -14,7 +14,7 @@ export class TempoRealService {
 
 
 	todos_veiculos_tempo_real(){
-		return this._http.get("http://127.0.0.1:8000/post/veiculos/")
+		return this._http.get("http://127.0.0.1:8000/linhas/")
 			.map(res => res.json())
 	}
 
