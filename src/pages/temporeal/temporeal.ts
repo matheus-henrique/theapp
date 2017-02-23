@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController,AlertController } from 'ionic-angular';
 
 import { TempoRealService } from './temporeal.service';
 
@@ -26,7 +26,7 @@ export class TempoReal implements OnInit{
 
 	}
 
-	constructor(public navCtrl: NavController, private _temposervice: TempoRealService) {
+	constructor(public navCtrl: NavController, private _temposervice: TempoRealService, private ac: AlertController) {
 
 	 }
 
@@ -40,6 +40,19 @@ export class TempoReal implements OnInit{
 	 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
 
+  }
+
+  sumirOnibus(zona){
+  		for(let i = 0; i < this._marker.length; i++){
+  				if(this._marker[i].title == zona){
+  					if(this._marker[i].getVisible()){
+  						this._marker[i].setVisible(false);	
+  					}
+  					else{
+  						this._marker[i].setVisible(true);	
+  					}
+  				}
+  		}
   }
 
 
@@ -56,6 +69,48 @@ export class TempoReal implements OnInit{
   }
 
 
+  mostrar_onibus_especifico(){
+  	let aa;
+ 	let prompt = this.ac.create({
+      title: 'Procurar linha',
+      message: "Digite o prefixo da linha, para mostrar somente ela no mapa.",
+      inputs: [
+        {
+          name: 'title',
+          placeholder: 'Prefixo da linha, ex : 508,517'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+          	console.log(data);
+          	this.filtrar_markers_pelo_num_linha(data.title);
+            console.log('Procurar');
+          }
+        }
+      ]
+    });
+
+	prompt.present();
+	console.log(aa);
+
+  }
+
+  filtrar_markers_pelo_num_linha(num){
+  	for(let i = 0; i < this._marker.length; i++){
+  		if(this._marker[i].num_linha != num){
+  			this._marker[i].setVisible(false);
+  		}
+  	}
+  }
+
     mostrarVeiculos(veiculos){
     	let date = new Date();
     	let minuto = date.getMinutes();
@@ -64,13 +119,30 @@ export class TempoReal implements OnInit{
   		let texto : any;
   		var content2 : any;
   		let img_cadeirante : any;
+  		let img = '';
   		for(let i = 0; i < veiculos.length; i++){
   			for(let y = 0; y < veiculos[i].Veiculos.length; y++){
+  				if(veiculos[i].Zona == "Norte"){
+  					img = '/assets/icon/norte.png'
+				}
+				else if(veiculos[i].Zona == "Leste"){
+  					img = '/assets/icon/leste.png'
+				}
+				else if(veiculos[i].Zona == "Sudeste"){
+  					img = '/assets/icon/sudeste.png'
+				}
+				else if(veiculos[i].Zona == "Sul"){
+  					img = '/assets/icon/sul.png'
+				}
+				else{
+					img = '/assets/icon/outros.png'
+				}
   				let _markerpoint = new google.maps.Marker({
 				    position: {lat: parseFloat(veiculos[i].Veiculos[y].Lat), lng: parseFloat(veiculos[i].Veiculos[y].Long)},
 				    map: this.map,
-				    title: 'Hello World!'
-				    // icon: '/assets/icon/icon.png'
+				    num_linha: veiculos[i].CodigoLinha,
+				    title: veiculos[i].Zona,
+				    icon: img
 			  	});
 
 			  	//let visto_por_ultimo = parseInt(minuto.toString()) - parseInt(veiculos[i].Veiculos[y].Hora.substr(4,5));
