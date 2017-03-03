@@ -1,9 +1,22 @@
-<ion-header></ion-header>
+<ion-header>
+  <ion-navbar primary>
+    <ion-title>
+      Paradas
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+	
+
 <ion-content>
-	 <img [src]="imageSrc" />
-	<button ion-button color="light">Light</button>
-	<button ion-button>Default</button>
-	<button ion-button color="secondary">Secondary</button>
-	<button ion-button color="danger" on-tap="openGallery()">Danger</button>
-	<button ion-button color="dark">Dark</button>
-</ion-content>
+  		<img style="margin: auto; display: block;" src="http://lh4.ggpht.com/_oQ-XxhlT3-8/SmUcWpygazI/AAAAAAAAA6k/Zg5ZVj66OHE/Parada%20de%20%C3%B4nibus_thumb%5B3%5D.png">
+        <p>Para localizar as paradas de onibus de Teresina é bem simples. Selecione abaixo uma opção, caso queira encontrar a parada mais proxima da sua atual localização, ou veja todas as paradas de uma determinada linha.</p>
+       <button ion-button full icon-left>
+        <ion-icon name="locate"></ion-icon>
+      		Parada mais proxima
+       </button>
+        <button ion-button full color="secondary" icon-left>
+        <ion-icon name="bus"></ion-icon>
+      		Todas as paradas de uma linha
+       </button>
+ </ion-content>

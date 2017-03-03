@@ -24,4 +24,10 @@ export class TempoRealService {
 			.take(10)
 			.map(res => res.json())
 	}
+
+
+	distancia_onibus_usuario(latitude,longitude){
+		return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latitude+","+longitude+"&destinations=-5.0823736,-42.799119&mode=bicycling&language=pt-BR&key=AIzaSyChAXtrYJ9zWrk5hdERf9yeIGLLScpoqec").
+			map(res => res.json())
+	}
 }

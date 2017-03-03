@@ -19,6 +19,14 @@ export class TempoReal implements OnInit{
 	map: any;
 	_veiculos: any;
 	_marker = [];
+	encontrado = false;
+	distancia: any;
+	icon = 'search';
+
+
+	icon_zonas= ['bus','bus','bus','bus'];
+	
+
 	mapOptions = {
 	      center: new google.maps.LatLng(-5.0782647, -42.7940927),
 	      zoom: 15,
@@ -47,9 +55,33 @@ export class TempoReal implements OnInit{
   				if(this._marker[i].title == zona){
   					if(this._marker[i].getVisible()){
   						this._marker[i].setVisible(false);	
+  						if(zona == "Sudeste"){
+				  			this.icon_zonas[0] = 'undo';
+				  		}
+				  		else if(zona == "Leste"){
+				  			this.icon_zonas[1] = 'undo';
+				  		}
+				  		else if(zona == "Norte"){
+				  			this.icon_zonas[2] = 'undo';
+				  		}
+				  		else{
+				  			this.icon_zonas[3] = 'undo';
+				  		}
   					}
   					else{
-  						this._marker[i].setVisible(true);	
+  						this._marker[i].setVisible(true);
+  						if(zona == "Sudeste"){
+				  			this.icon_zonas[0] = 'bus';
+				  		}
+				  		else if(zona == "Leste"){
+				  			this.icon_zonas[1] = 'bus';
+				  		}
+				  		else if(zona == "Norte"){
+				  			this.icon_zonas[2] = 'bus';
+				  		}
+				  		else{
+				  			this.icon_zonas[3] = 'bus';
+				  		}	
   					}
   				}
   		}
@@ -71,43 +103,75 @@ export class TempoReal implements OnInit{
 
   mostrar_onibus_especifico(){
   	let aa;
- 	let prompt = this.ac.create({
-      title: 'Procurar linha',
-      message: "Digite o prefixo da linha, para mostrar somente ela no mapa.",
-      inputs: [
-        {
-          name: 'title',
-          placeholder: 'Prefixo da linha, ex : 508,517'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Save',
-          handler: data => {
-          	console.log(data);
-          	this.filtrar_markers_pelo_num_linha(data.title);
-            console.log('Procurar');
-          }
-        }
-      ]
-    });
+  	let primeiro = false;
+  	if(this.icon == 'undo'){
+  		for(let i = 0; i < this._marker.length; i++){
+  			this._marker[i].setVisible(true);		
+  		}
 
-	prompt.present();
-	console.log(aa);
+  		this.icon = 'search'
+  		primeiro = true;
+  	}
+  	if(this.icon == 'search' && primeiro == false){
+	  	let prompt = this.ac.create({
+	      title: 'Procurar linha',
+	      message: "Digite o prefixo da linha, para mostrar somente ela no mapa.",
+	      inputs: [
+	        {
+	          name: 'title',
+	          placeholder: 'Prefixo da linha, ex : 508,517'
+	        },
+	      ],
+	      buttons: [
+	        {
+	          text: 'Cancelar',
+	          handler: data => {
+	            console.log('Cancel clicked');
+	          }
+	        },
+	        {
+	          text: 'Save',
+	          handler: data => {
+	          	console.log(data);
+	          	this.filtrar_markers_pelo_num_linha(data.title);
+	            console.log('Procurar');
+	          }
+	        }
+	      ]
+	    });
 
+		prompt.present();
+  	}
   }
 
+
   filtrar_markers_pelo_num_linha(num){
+  	let existe_num_linha = false;
+
   	for(let i = 0; i < this._marker.length; i++){
-  		if(this._marker[i].num_linha != num){
-  			this._marker[i].setVisible(false);
+  		if(this._marker[i].num_linha == num){
+  			existe_num_linha = true;
+  			this.map.setCenter(this._marker[i].position);
+  			break
   		}
+  	}
+
+  	if(existe_num_linha == true){
+  		this.icon = 'undo';
+  		for(let i = 0; i < this._marker.length; i++){
+  			if(this._marker[i].num_linha != num){
+	  			this._marker[i].setVisible(false);
+	  		}
+  		}
+  	}
+  	else{
+  		let alert = this.ac.create({
+  			title: "Erro",
+  			subTitle: "Não foi encontrado ônibus, para a linha : "+num,
+  			buttons: ['OK']
+  		});
+
+  		alert.present();
   	}
   }
 
@@ -137,6 +201,9 @@ export class TempoReal implements OnInit{
 				else{
 					img = '/assets/icon/outros.png'
 				}
+
+				
+
   				let _markerpoint = new google.maps.Marker({
 				    position: {lat: parseFloat(veiculos[i].Veiculos[y].Lat), lng: parseFloat(veiculos[i].Veiculos[y].Long)},
 				    map: this.map,
@@ -151,10 +218,14 @@ export class TempoReal implements OnInit{
 			  	let teste = veiculos[i].Veiculos[y].Hora.substr(0,2);
 
 			  	let teste2 = veiculos[i].Veiculos[y].Hora.substr(3,2);
+			  
 			  	let teste3 = veiculos[i].Veiculos[y].Hora.substr(6,2);
+			  	
+			  	console.log(d);
 			  	d.setHours(d.getHours() - teste);
 			  	d.setMinutes(d.getMinutes() - teste2);
 			  	d.setSeconds(d.getSeconds() - teste3);
+
 			  	if(d.getHours() > 0){
 			  		texto = "Há "+ d.getHours() + " Horas e "+ d.getMinutes() + " minuto(s) atrás";
 			  	}
@@ -166,17 +237,30 @@ export class TempoReal implements OnInit{
 				  	}
 
 			  	}
+
+
+
+			  	
 			  	
 			  	if(veiculos[i].Veiculos[y].Cadeirante){
 			  		img_cadeirante = "http://pessoascomdeficiencia.com.br/site/wp-content/uploads/2016/04/unnamed.jpg"
 			  	}else{
 			  		img_cadeirante = "http://2.bp.blogspot.com/_Xo1nI_2EICc/TK0PNesxoII/AAAAAAAABVI/g8Q51G7wXp8/s1600/naoentra.jpg"
 			  	}
-  				content2 = veiculos[i].CodigoLinha + " " + veiculos[i].Denomicao + "  <img src='"+img_cadeirante+"' width='20'/>"+"<br>" +
-  					"Codigo do Veiculo : " + veiculos[i].Veiculos[y].CodigoVeiculo + "<br>" + 
-  					"Origem : " + veiculos[i].Origem + "<br>" +
-  					"Retorno : " + veiculos[i].Retorno + "<br>" +
-  					"Visto por ultimo : " + texto;
+
+			  	
+			  	
+			
+		  		content2 = veiculos[i].CodigoLinha + " " + veiculos[i].Denomicao + "  <img src='"+img_cadeirante+"' width='20'/>"+"<br>" +
+					"Codigo do Veiculo : " + veiculos[i].Veiculos[y].CodigoVeiculo + "<br>" + 
+					"Origem : " + veiculos[i].Origem + "<br>" +
+					"Retorno : " + veiculos[i].Retorno + "<br>" +
+					"Visto por ultimo : " + texto + "<br>";
+
+
+
+
+  			
 			  	
 			  	var infowindow = new google.maps.InfoWindow({
 				    content: content2
