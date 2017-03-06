@@ -21277,6 +21277,15 @@ sub {
   }
 }
 
+.ios paradas .scroll-content, .md paradas .scroll-content, .wp paradas .scroll-content {
+  height: 100%;
+}
+
+.ios paradas #map, .md paradas #map, .wp paradas #map {
+  width: 100%;
+  height: 100%;
+}
+
 ion-card.adv-map p {
   font-size: 0.7em !important;
 }

@@ -8,10 +8,13 @@ import { Paradas } from '../pages/paradas/paradas';
 import { Linhas } from '../pages/linhas/linhas';
 import { ConfiguracoesComponent } from '../pages/configuracoes/configuracoes.component';
 import { ReclamacaoComponent } from '../pages/reclamacoes/reclamacoes.component';
+import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.component';
+
 
 //Services
 import { TempoRealService } from '../pages/temporeal/temporeal.service';
 import { LinhasService } from '../pages/linhas/linhas.service';
+import { ParadasService } from '../pages/paradas/paradas.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { LinhasService } from '../pages/linhas/linhas.service';
     Linhas,
     TabsPage,
     ConfiguracoesComponent,
-    ReclamacaoComponent 
+    ReclamacaoComponent,
+    DetalhesParadas
   ],
   imports: [
     IonicModule.forRoot(MyApp,{tabsHideOnSubPages: true})
@@ -34,8 +38,9 @@ import { LinhasService } from '../pages/linhas/linhas.service';
     Linhas,
     TabsPage,
     ConfiguracoesComponent,
-    ReclamacaoComponent 
+    ReclamacaoComponent,
+    DetalhesParadas 
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService]
 })
 export class AppModule {}
