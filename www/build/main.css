@@ -21303,6 +21303,10 @@ ion-content.cards-bg {
   background-color: #f4f4f7;
 }
 
+.toast-message {
+  white-space: pre;
+}
+
 .ios page-home .scroll-content, .md page-home .scroll-content, .wp page-home .scroll-content {
   height: 100%;
 }

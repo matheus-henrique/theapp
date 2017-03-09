@@ -11,6 +11,7 @@ import { ReclamacaoComponent } from '../pages/reclamacoes/reclamacoes.component'
 import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.component';
 
 
+
 //Services
 import { TempoRealService } from '../pages/temporeal/temporeal.service';
 import { LinhasService } from '../pages/linhas/linhas.service';
@@ -39,7 +40,7 @@ import { ParadasService } from '../pages/paradas/paradas.service';
     TabsPage,
     ConfiguracoesComponent,
     ReclamacaoComponent,
-    DetalhesParadas 
+    DetalhesParadas
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService]
 })

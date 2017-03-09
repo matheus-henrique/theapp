@@ -15,4 +15,10 @@ export class ParadasService {
 		return this._http.get("http://127.0.0.1:8000/parada_especifica/"+num)
 			.map(res => res.json())
 	}
+
+
+	parada_mais_proxima(){
+		return this._http.get("http://127.0.0.1:8000/parada_proxima/")
+			.map(res => res.json())
+	}
 }
