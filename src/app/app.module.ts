@@ -16,6 +16,7 @@ import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.comp
 import { TempoRealService } from '../pages/temporeal/temporeal.service';
 import { LinhasService } from '../pages/linhas/linhas.service';
 import { ParadasService } from '../pages/paradas/paradas.service';
+import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_paradas.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,6 @@ import { ParadasService } from '../pages/paradas/paradas.service';
     ReclamacaoComponent,
     DetalhesParadas
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService,DetalhesParadasService]
 })
 export class AppModule {}

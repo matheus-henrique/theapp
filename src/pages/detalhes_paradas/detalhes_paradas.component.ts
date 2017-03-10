@@ -3,6 +3,9 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 import { NavController,NavParams,ToastController } from 'ionic-angular';
 import { Paradas } from '../paradas/paradas';
+import { Geolocation } from 'ionic-native';
+
+import { DetalhesParadasService } from './detalhes_paradas.service';
 
 declare var google;
 
@@ -18,10 +21,14 @@ export class DetalhesParadas implements OnInit{
 	_marker = [];
 	inicio : any;
 	final : any;
-	brightness = 5;
+	brightness = 30;
 	circle : any;
+	latitude : any;
+	longitude : any;
+	modificou = false;
 	directionsService = new google.maps.DirectionsService;
 	directionsDisplay;
+	paradas : any;
 
 	mapOptions = {
 	      center: new google.maps.LatLng(-5.0782647, -42.7940927),
@@ -30,8 +37,9 @@ export class DetalhesParadas implements OnInit{
 
 	}
 
-	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController) {
+	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController, public ds : DetalhesParadasService) {
 		this.dados = navParams.get('dados');
+		
 		
 	}
 
@@ -41,27 +49,39 @@ export class DetalhesParadas implements OnInit{
 	ngOnInit(){
 		this.loadMap();
 		console.log(this.dados);
+		
+	}
+
+	pegar_localizao_user(latitude,longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 
 
 	loadMap(){
 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
-	    if(this.dados.Paradas)
-	    	this.marcar_pontos_mapa_paradas('23123');
-	    else
-	    	this.marcar_parada_mais_proxima();
+	    Geolocation.getCurrentPosition().then((position) => {
+	    	this.latitude = position.coords.latitude;
+	    	this.longitude = position.coords.longitude;
+		    if(this.dados){
+		    	if(this.dados.Paradas)
+		    		this.marcar_pontos_mapa_paradas('23123');
+		    	else
+		    		this.marcar_parada_mais_proxima();
+		    }  
+		   	else
+		   		this.raio_paradas_mais_proximas(position.coords.latitude,position.coords.longitude);
+
+	   	});
 	 
 	  }
 
-  marcar_parada_mais_proxima(){
-  	let marker = new google.maps.Marker({
-  		position: {lat: parseFloat(this.dados.Lat), lng: parseFloat(this.dados.Long)},
-  		map: this.map
-  	});
 
-  	let marker2 = new google.maps.Marker({
-  		position: {lat: -5.118302, lng: -42.761196},
+  raio_paradas_mais_proximas(latitude, longitude){
+
+  	let marker = new google.maps.Marker({
+  		position: {lat : latitude, lng : longitude},
   		map: this.map
   	});
 
@@ -76,25 +96,66 @@ export class DetalhesParadas implements OnInit{
 	    radius: this.brightness * 5
 
   	});
+
   	this.map.setCenter(marker.position);
 
+  }
+
+  marcar_parada_mais_proxima(){
+  	let marker = new google.maps.Marker({
+  		position: {lat: parseFloat(this.dados.Lat), lng: parseFloat(this.dados.Long)},
+  		map: this.map
+  	});
+
+  	let marker2 = new google.maps.Marker({
+  		position: {lat: -5.118302, lng: -42.761196},
+  		map: this.map
+  	});
 
   }
 
 
   aumentar_circulo(event){
+  	this.modificou = true;
   	this.circle.setRadius(this.brightness * 5);
-  	let marker_distance = new google.maps.LatLng(parseFloat(this.dados.Lat),parseFloat(this.dados.Long));
-  	let marker2_distance = new google.maps.LatLng(-5.118302,-42.761196)
-  	let distance = google.maps.geometry.spherical.computeDistanceBetween(marker_distance, marker2_distance);
-  	if(distance <= this.brightness * 5){
-  		console.log("Ta dentro");
-  	}else{
-  		console.log("Ta fora");
-  	}
-
+  	
   }
 
+
+  mostrarParadasRaio(){
+  	if(!this.paradas){
+  		alert("Requisitou");
+  		this.ds.calcular_raio_paradas().
+  			subscribe(res => this.marcar_pontos_raio_paradas(res))
+  	}else{
+  		this.marcar_pontos_raio_paradas(this.paradas);
+  	}
+  
+  }
+
+
+
+  marcar_pontos_raio_paradas(paradas){
+  	this.paradas = paradas;
+  	let markers = [];
+  	let marker = new google.maps.LatLng(parseFloat(this.latitude),parseFloat(this.longitude)); //origem
+  	let marker_parada;
+  	let distance;
+  	for(let i = 0; i < paradas.length; i++){
+  		marker_parada = new google.maps.LatLng(paradas[i].Lat,paradas[i].Long)
+  		distance = google.maps.geometry.spherical.computeDistanceBetween(marker, marker_parada);
+  		if(distance <= this.brightness * 5){
+  			let _markerpoint = new google.maps.Marker({
+  				position: {lat: parseFloat(paradas[i].Lat), lng: parseFloat(paradas[i].Long)},
+  				map : this.map
+  			});
+
+  			markers.push(_markerpoint);
+  		}else{
+  			console.log("Esta fora")
+  		}
+  	}
+  }
 
   marcar_pontos_mapa_paradas(paradas){
   	// let waypts = [];

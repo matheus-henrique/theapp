@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="secondary">
+  <ion-navbar>
    <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
@@ -18,7 +18,7 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content color="secondary">
+  <ion-content >
     <ion-list>
       <button color="secondary" ion-item (click)="abrirConfiguracoes()">
         Noticias 
@@ -45,13 +45,13 @@
       </button>
   </ion-fab>
   <ion-fab right bottom>
-    <button ion-fab color="secondary"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">
-      <button color="secondary" [hidden]="icon != 'search'" (click)="sumirOnibus('Sudeste')" ion-fab><ion-icon style="color : blue "[name]="icon_zonas[0]"></ion-icon></button>
-      <button color="secondary" [hidden]="icon != 'search'" (click)="sumirOnibus('Leste')" ion-fab><ion-icon style="color : red "[name]="icon_zonas[1]"></ion-icon></button>
-      <button color="secondary" [hidden]="icon != 'search'" (click)="sumirOnibus('Norte')" ion-fab><ion-icon style="color : green "[name]="icon_zonas[2]"></ion-icon></button>
-      <button color="secondary" [hidden]="icon != 'search'" (click)="sumirOnibus('Sul')" ion-fab><ion-icon style="color : yellow "[name]="icon_zonas[3]" ></ion-icon></button>
-      <button color="secondary" [hidden]="icon_zonas[0] == 'undo' || icon_zonas[1] == 'undo' || icon_zonas[2] == 'undo' || icon_zonas[3] == 'undo'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>
+      <button  [hidden]="icon != 'search'" (click)="sumirOnibus('Sudeste')" ion-fab><ion-icon style="color : blue "[name]="icon_zonas[0]"></ion-icon></button>
+      <button  [hidden]="icon != 'search'" (click)="sumirOnibus('Leste')" ion-fab><ion-icon style="color : red "[name]="icon_zonas[1]"></ion-icon></button>
+      <button  [hidden]="icon != 'search'" (click)="sumirOnibus('Norte')" ion-fab><ion-icon style="color : green "[name]="icon_zonas[2]"></ion-icon></button>
+      <button  [hidden]="icon != 'search'" (click)="sumirOnibus('Sul')" ion-fab><ion-icon style="color : yellow "[name]="icon_zonas[3]" ></ion-icon></button>
+      <button  [hidden]="icon_zonas[0] == 'undo' || icon_zonas[1] == 'undo' || icon_zonas[2] == 'undo' || icon_zonas[3] == 'undo'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
   <div #map id="map"></div>

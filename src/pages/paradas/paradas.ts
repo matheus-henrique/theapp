@@ -69,6 +69,10 @@ export class Paradas{
           () => {console.log("Concluido")})
   }
 
+  raio_paradas_mais_proximas(){
+    this.navCtrl.push(DetalhesParadas)
+  }
+
 
   parada_mais_proxima(){
     this.ps.parada_mais_proxima().subscribe(res => {

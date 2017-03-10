@@ -1,33 +1,50 @@
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="dados.Linha">
+    <ion-title *ngIf="dados?.Linha">
       {{dados.Linha?.Denomicao}}
     </ion-title>
-    <ion-title *ngIf="dados.Denomicao">
+    <ion-title *ngIf="dados?.Denomicao">
       {{dados.Denomicao}}
+    </ion-title>
+    <ion-title *ngIf="!dados">
+      Defina o Tamanho do Raio
     </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content>
 
- <ion-fab right top *ngIf="dados.Linha">
+ <ion-fab right top *ngIf="dados?.Linha">
       <button ion-fab secondary class="fab-map" color="secondary">
         <ion-icon name='bus'></ion-icon>
-        <h4>{{dados.Paradas.length}}</h4>
+        <h4>{{dados.Paradas?.length}}</h4>
       </button>
   </ion-fab>
 
 
 
- <ion-item>
-   <ion-range min="0" max="3000" step="1" [(ngModel)]="brightness" (ionChange)="aumentar_circulo($event)">
-     <ion-icon small range-left name="search"></ion-icon>
-     <ion-icon range-right name="search"></ion-icon>
-   </ion-range>
-</ion-item>
+  
+<ion-fab right top *ngIf="modificou" (click)="mostrarParadasRaio()">
+   <button right top ion-button color="danger" round>Mostrar Paradas</button>
+</ion-fab>
 
- <div #map id="map"></div>
+
+ <div #map id="map">
+     
+ </div>
+
+
 
 
   
 </ion-content>
+
+<ion-footer *ngIf="!dados">
+  <ion-toolbar>
+  <ion-item>
+   <ion-range min="0" color="danger" max="1000" step="1" [(ngModel)]="brightness" (ionChange)="aumentar_circulo($event)">
+     <ion-icon small range-left name="radio-button-off"></ion-icon>
+     <ion-icon range-right name="radio-button-off"></ion-icon>
+   </ion-range>
+  </ion-item>
+  </ion-toolbar>
+</ion-footer>
