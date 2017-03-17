@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http'
+import { Http,Headers,RequestOptions } from '@angular/http'
 import 'rxjs/Rx';
 
 
@@ -17,8 +17,12 @@ export class ParadasService {
 	}
 
 
-	parada_mais_proxima(){
-		return this._http.get("http://127.0.0.1:8000/parada_proxima/")
+	parada_mais_proxima(latitude, longitude){
+		let headers = new Headers();
+		headers.append('Latitude',latitude);
+		headers.append('Longitude',longitude);
+		let options = new RequestOptions({ headers : headers});
+		return this._http.get("http://127.0.0.1:8000/parada_proxima/",options)
 			.map(res => res.json())
 	}
 }

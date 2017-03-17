@@ -28,7 +28,9 @@ export class DetalhesParadas implements OnInit{
 	modificou = false;
 	directionsService = new google.maps.DirectionsService;
 	directionsDisplay;
+	paradas_radio : any;
 	paradas : any;
+	menu = 'detalhes';
 
 	mapOptions = {
 	      center: new google.maps.LatLng(-5.0782647, -42.7940927),
@@ -79,11 +81,14 @@ export class DetalhesParadas implements OnInit{
 
 
   raio_paradas_mais_proximas(latitude, longitude){
+  	this.menu = 'mapa';
 
   	let marker = new google.maps.Marker({
   		position: {lat : latitude, lng : longitude},
   		map: this.map
   	});
+
+  	console.log(latitude,longitude);
 
   	this.circle = new google.maps.Circle({
   		strokeColor: '#FF0000',
@@ -107,24 +112,19 @@ export class DetalhesParadas implements OnInit{
   		map: this.map
   	});
 
-  	let marker2 = new google.maps.Marker({
-  		position: {lat: -5.118302, lng: -42.761196},
-  		map: this.map
-  	});
-
   }
 
 
   aumentar_circulo(event){
   	this.modificou = true;
   	this.circle.setRadius(this.brightness * 5);
+  	console.log(this.paradas_radio);
   	
   }
 
 
   mostrarParadasRaio(){
   	if(!this.paradas){
-  		alert("Requisitou");
   		this.ds.calcular_raio_paradas().
   			subscribe(res => this.marcar_pontos_raio_paradas(res))
   	}else{
@@ -137,6 +137,7 @@ export class DetalhesParadas implements OnInit{
 
   marcar_pontos_raio_paradas(paradas){
   	this.paradas = paradas;
+  	this.paradas_radio = [];
   	let markers = [];
   	let marker = new google.maps.LatLng(parseFloat(this.latitude),parseFloat(this.longitude)); //origem
   	let marker_parada;
@@ -145,6 +146,7 @@ export class DetalhesParadas implements OnInit{
   		marker_parada = new google.maps.LatLng(paradas[i].Lat,paradas[i].Long)
   		distance = google.maps.geometry.spherical.computeDistanceBetween(marker, marker_parada);
   		if(distance <= this.brightness * 5){
+  			this.paradas_radio.push(paradas[i]);
   			let _markerpoint = new google.maps.Marker({
   				position: {lat: parseFloat(paradas[i].Lat), lng: parseFloat(paradas[i].Long)},
   				map : this.map

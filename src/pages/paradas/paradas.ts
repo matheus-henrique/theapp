@@ -4,6 +4,7 @@ import { NavController,AlertController  } from 'ionic-angular';
 import { ParadasService } from './paradas.service';
 
 import { DetalhesParadas } from '../detalhes_paradas/detalhes_paradas.component';
+import { Geolocation } from 'ionic-native';
  
 
 
@@ -75,9 +76,11 @@ export class Paradas{
 
 
   parada_mais_proxima(){
-    this.ps.parada_mais_proxima().subscribe(res => {
-      this.navCtrl.push(DetalhesParadas, {dados : res})
-    });
+    Geolocation.getCurrentPosition().then((position) => {
+        this.ps.parada_mais_proxima(position.coords.latitude,position.coords.longitude).subscribe(res => {
+          this.navCtrl.push(DetalhesParadas, {dados : res})
+        });
+    }); 
   }
 
 }

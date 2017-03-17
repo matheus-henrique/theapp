@@ -9,11 +9,23 @@
     <ion-title *ngIf="!dados">
       Defina o Tamanho do Raio
     </ion-title>
-  </ion-navbar>
+  </ion-navbar> 
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="menu">
+      <ion-segment-button value="detalhes">
+        Detalhes
+      </ion-segment-button>
+      <ion-segment-button value="mapa">
+        Mapa
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+
 </ion-header>
 <ion-content>
 
- <ion-fab right top *ngIf="dados?.Linha">
+ <ion-fab [hidden]="menu == 'detalhes'" right top *ngIf="dados?.Linha">
       <button ion-fab secondary class="fab-map" color="secondary">
         <ion-icon name='bus'></ion-icon>
         <h4>{{dados.Paradas?.length}}</h4>
@@ -23,12 +35,53 @@
 
 
   
-<ion-fab right top *ngIf="modificou" (click)="mostrarParadasRaio()">
+<ion-fab right top *ngIf="modificou && menu=='mapa'" (click)="mostrarParadasRaio()">
    <button right top ion-button color="danger" round>Mostrar Paradas</button>
 </ion-fab>
 
 
- <div #map id="map">
+<div *ngIf="menu == 'detalhes'">
+    <ion-list no-border *ngIf="dados?.Denomicao">
+
+      <ion-item>
+        <ion-icon name='bus' item-left></ion-icon>
+         {{dados.Denomicao}}
+         <p>This town ain't big enough for the two of us!</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="dados?.Linha">
+
+      <ion-item *ngFor="let item of dados.Paradas">
+        <ion-icon name='bus' item-left></ion-icon>
+         {{item.Denomicao}}
+         <p>{{item.Endereco}}</p>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-list *ngIf="paradas_radio">
+      <ion-item *ngFor="let item of paradas_radio">
+        <ion-icon name='bus' item-left></ion-icon>
+         {{item.Denomicao}}
+         <p>{{item.Endereco}}</p>
+          <ion-note item-right>{{item.CodigoParada}}</ion-note>
+      </ion-item>
+    </ion-list>
+
+
+    <div *ngIf="menu == 'detalhes' && this.circle && !paradas_radio">
+         <h1 style="text-align: center">Coloque um valor para o raio e aperte em "mostrar paradas".</h1>
+    </div>
+ 
+
+
+
+
+</div>
+
+
+ <div #map id="map" [hidden]="menu == 'detalhes'">
      
  </div>
 
@@ -38,7 +91,7 @@
   
 </ion-content>
 
-<ion-footer *ngIf="!dados">
+<ion-footer *ngIf="!dados && menu=='mapa'">
   <ion-toolbar>
   <ion-item>
    <ion-range min="0" color="danger" max="1000" step="1" [(ngModel)]="brightness" (ionChange)="aumentar_circulo($event)">
