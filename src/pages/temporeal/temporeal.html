@@ -10,6 +10,16 @@
       (ionCancel)="onCancel($event)">
     </ion-searchbar>
   </ion-navbar>
+    <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="menu">
+      <ion-segment-button value="detalhes">
+        Detalhes
+      </ion-segment-button>
+      <ion-segment-button value="mapa">
+        Mapa
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-menu [content]="content">
@@ -39,12 +49,32 @@
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
 
 <ion-content>
- <ion-fab right top (click)="atualizar()">
+<div *ngIf="menu == 'detalhes'">
+   <ion-list>
+    <div *ngFor="let item of _veiculos">
+     <ion-list-header>
+     {{item.CodigoLinha}} - {{item.Denomicao}}
+    </ion-list-header>
+        <ion-item *ngFor="let item2 of item.Veiculos">
+          <ion-icon name='bus' item-left></ion-icon>
+             Codigo do veiculo : {{item2.CodigoVeiculo}}
+           <p>
+              Zona : {{item.Zona}}
+            </p>
+            <ion-note item-right *ngIf="item2.Cadeirante"><img width="25px" src="http://pessoascomdeficiencia.com.br/site/wp-content/uploads/2016/04/unnamed.jpg"></ion-note>
+            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona != 'Outros'"><img width="25px" src="http://2.bp.blogspot.com/_Xo1nI_2EICc/TK0PNesxoII/AAAAAAAABVI/g8Q51G7wXp8/s1600/naoentra.jpg"></ion-note>
+            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona == 'Outros'"><img width="25px" src="https://image.freepik.com/icones-gratis/ponto-de-interrogacao-dentro-de-um-contorno-de-caixa_318-51427.jpg"></ion-note>
+            
+        </ion-item>
+    </div>
+    </ion-list>
+</div>
+ <ion-fab right top (click)="atualizar()" *ngIf="menu == 'mapa'">
       <button ion-fab secondary class="fab-map" color="secondary">
         <ion-icon name='refresh'></ion-icon>
       </button>
   </ion-fab>
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="menu == 'mapa'">
     <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>
     <ion-fab-list side="left">
       <button  [hidden]="icon != 'search'" (click)="sumirOnibus('Sudeste')" ion-fab><ion-icon style="color : blue "[name]="icon_zonas[0]"></ion-icon></button>
@@ -54,5 +84,5 @@
       <button  [hidden]="icon_zonas[0] == 'undo' || icon_zonas[1] == 'undo' || icon_zonas[2] == 'undo' || icon_zonas[3] == 'undo'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <div #map id="map"></div>
+  <div #map id="map" [hidden]="menu == 'detalhes'"></div>
 </ion-content>

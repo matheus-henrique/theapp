@@ -22,7 +22,7 @@ export class TempoReal implements OnInit{
 	encontrado = false;
 	distancia: any;
 	icon = 'search';
-
+	menu = 'detalhes';
 
 	icon_zonas= ['bus','bus','bus','bus'];
 	
@@ -221,7 +221,6 @@ export class TempoReal implements OnInit{
 			  
 			  	let teste3 = veiculos[i].Veiculos[y].Hora.substr(6,2);
 			  	
-			  	console.log(d);
 			  	d.setHours(d.getHours() - teste);
 			  	d.setMinutes(d.getMinutes() - teste2);
 			  	d.setSeconds(d.getSeconds() - teste3);
