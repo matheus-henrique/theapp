@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 
-import { NavController,AlertController  } from 'ionic-angular';
+import { NavController,AlertController,LoadingController  } from 'ionic-angular';
 import { ParadasService } from './paradas.service';
 
 import { DetalhesParadas } from '../detalhes_paradas/detalhes_paradas.component';
@@ -14,7 +14,7 @@ import { Geolocation } from 'ionic-native';
 })
 export class Paradas{
 
-  constructor(public navCtrl: NavController, public ps: ParadasService, public ac : AlertController){
+  constructor(public navCtrl: NavController, public ps: ParadasService, public ac : AlertController,public loadingCtrl: LoadingController){
 
   }
 
@@ -51,8 +51,13 @@ export class Paradas{
 
   parada_especifica(num){
     let num_linha = "0" + num;
+    let loading = this.loadingCtrl.create({
+            content: 'Carregando...'
+          });
 
+         
   	this.ps.pegar_linha_especifica(num_linha).subscribe(res => {
+        loading.present();
 	  			this.navCtrl.push(DetalhesParadas,{dados : res})
 	  			},
           err => {
@@ -67,7 +72,7 @@ export class Paradas{
 
             alert.present();
           },
-          () => {console.log("Concluido")})
+          () => {loading.dismiss()})
   }
 
   raio_paradas_mais_proximas(){
@@ -76,10 +81,16 @@ export class Paradas{
 
 
   parada_mais_proxima(){
+    let loading = this.loadingCtrl.create({
+            content: 'Carregando...'
+    });
+    loading.present();
     Geolocation.getCurrentPosition().then((position) => {
         this.ps.parada_mais_proxima(position.coords.latitude,position.coords.longitude).subscribe(res => {
           this.navCtrl.push(DetalhesParadas, {dados : res})
-        });
+        },
+        err => console.log(err),
+        () => loading.dismiss());
     }); 
   }
 

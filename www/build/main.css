@@ -21307,6 +21307,15 @@ ion-content.cards-bg {
   white-space: pre;
 }
 
+.ios rota .scroll-content, .md rota .scroll-content, .wp rota .scroll-content {
+  height: 100%;
+}
+
+.ios rota #map, .md rota #map, .wp rota #map {
+  width: 100%;
+  height: 100%;
+}
+
 .ios page-home .scroll-content, .md page-home .scroll-content, .wp page-home .scroll-content {
   height: 100%;
 }

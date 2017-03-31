@@ -1,6 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController,LoadingController } from 'ionic-angular';
 
 import { LinhasService } from './linhas.service';
 
@@ -19,11 +19,15 @@ export class Linhas implements OnInit{
 	terminal : any;
 	outros : any;
 
-  constructor(public navCtrl: NavController, public linhaService: LinhasService) {
+  constructor(public navCtrl: NavController, public linhaService: LinhasService,public loadingCtrl: LoadingController) {
 
   }
 
   ngOnInit(){
+     let loading = this.loadingCtrl.create({
+        content: 'Carregando Linhas...'
+      });
+
   		this.linhaService.linhasZonaSul()
   			.subscribe(res => this.sul= res)
   		this.linhaService.linhasZonaSudeste()
@@ -35,7 +39,9 @@ export class Linhas implements OnInit{
   		this.linhaService.linhasZonaTerminal()
   			.subscribe(res => this.terminal= res)
   		this.linhaService.linhasZonaOutros()
-  			.subscribe(res => this.outros= res)
+  			.subscribe(res => this.outros= res,
+          err => console.log(err),
+          () => loading.dismiss())
   }
 
 }

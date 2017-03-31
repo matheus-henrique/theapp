@@ -1,11 +1,12 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
-import { NavController,AlertController } from 'ionic-angular';
+import { NavController,AlertController,LoadingController } from 'ionic-angular';
 
 import { TempoRealService } from './temporeal.service';
 
 import { ConfiguracoesComponent } from '../configuracoes/configuracoes.component';
 import { ReclamacaoComponent } from '../reclamacoes/reclamacoes.component';
+import { DetalhesOnibusComponent } from '../detalhes_onibus/detalhes_onibus.component';
 
 declare var google;
 
@@ -14,7 +15,7 @@ declare var google;
   templateUrl: 'temporeal.html'
 })
 export class TempoReal implements OnInit{
-
+	menu = 'detalhes';
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
 	_veiculos: any;
@@ -22,7 +23,7 @@ export class TempoReal implements OnInit{
 	encontrado = false;
 	distancia: any;
 	icon = 'search';
-	menu = 'detalhes';
+	
 
 	icon_zonas= ['bus','bus','bus','bus'];
 	
@@ -34,20 +35,45 @@ export class TempoReal implements OnInit{
 
 	}
 
-	constructor(public navCtrl: NavController, private _temposervice: TempoRealService, private ac: AlertController) {
+	constructor(public navCtrl: NavController, private _temposervice: TempoRealService, private ac: AlertController,public loadingCtrl: LoadingController) {
 
 	 }
 
 	 ngOnInit(){
 	 	this.carregarMapa();
+	 	
+	 	 console.log(this.mapElement.nativeElement);
+	 	 let loading = this.loadingCtrl.create({
+		    content: 'Carregando...'
+		  });
+
+		 loading.present();
 	 	this._temposervice.todos_veiculos_tempo_real()
-	 		.subscribe(res => this.mostrarVeiculos(res))
+	 		.subscribe(res => this.mostrarVeiculos(res),
+	 			err => console.log(err),
+	 			() => loading.dismiss())
 	 }
+
+
 
 	carregarMapa(){
 	 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
+	    google.maps.event.trigger(this.mapElement.nativeElement, 'resize');
 
+  }
+
+
+  menumudar(){
+  	google.maps.event.trigger(this.map, 'resize');
+  }
+
+
+  mostrarDetalhesOnibus(onibus,infoonibus){
+  	console.log(onibus);
+  	onibus.Zona = infoonibus.Zona;
+  	onibus.Linha = infoonibus.CodigoLinha;
+  	this.navCtrl.push(DetalhesOnibusComponent,{onibus : onibus})
   }
 
   sumirOnibus(zona){
@@ -178,7 +204,6 @@ export class TempoReal implements OnInit{
     mostrarVeiculos(veiculos){
     	let date = new Date();
     	let minuto = date.getMinutes();
-    	console.log(minuto);
   		this._veiculos = veiculos;
   		let texto : any;
   		var content2 : any;

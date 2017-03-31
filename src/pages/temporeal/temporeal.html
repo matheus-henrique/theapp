@@ -15,7 +15,7 @@
       <ion-segment-button value="detalhes">
         Detalhes
       </ion-segment-button>
-      <ion-segment-button value="mapa">
+      <ion-segment-button value="mapa" (click)="menumudar()">
         Mapa
       </ion-segment-button>
     </ion-segment>
@@ -49,13 +49,17 @@
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
 
 <ion-content>
+ <div #map id="map" [hidden]="menu == 'detalhes'">
+     
+ </div>
+
 <div *ngIf="menu == 'detalhes'">
    <ion-list>
     <div *ngFor="let item of _veiculos">
      <ion-list-header>
      {{item.CodigoLinha}} - {{item.Denomicao}}
     </ion-list-header>
-        <ion-item *ngFor="let item2 of item.Veiculos">
+        <ion-item *ngFor="let item2 of item.Veiculos" (click)="mostrarDetalhesOnibus(item2,item)">
           <ion-icon name='bus' item-left></ion-icon>
              Codigo do veiculo : {{item2.CodigoVeiculo}}
            <p>
@@ -84,5 +88,5 @@
       <button  [hidden]="icon_zonas[0] == 'undo' || icon_zonas[1] == 'undo' || icon_zonas[2] == 'undo' || icon_zonas[3] == 'undo'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
-  <div #map id="map" [hidden]="menu == 'detalhes'"></div>
+ 
 </ion-content>

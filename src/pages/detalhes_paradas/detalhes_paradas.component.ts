@@ -109,7 +109,9 @@ export class DetalhesParadas implements OnInit{
   marcar_parada_mais_proxima(){
   	let marker = new google.maps.Marker({
   		position: {lat: parseFloat(this.dados.Lat), lng: parseFloat(this.dados.Long)},
-  		map: this.map
+  		map: this.map,
+  		icon: '/assets/icon/bustop.png'
+
   	});
 
   }
@@ -167,7 +169,8 @@ export class DetalhesParadas implements OnInit{
 
 		let _markerpoint = new google.maps.Marker({
 		    position: {lat: parseFloat(this.dados.Paradas[i].Lat), lng: parseFloat(this.dados.Paradas[i].Long)},
-		    map: this.map//,
+		    map: this.map,//,
+		    icon: '/assets/icon/bustop.png'
 		    //icon: "/assets/icon/button_S-6.png"
   			});
 

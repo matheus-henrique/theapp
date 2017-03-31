@@ -9,6 +9,10 @@ import { Linhas } from '../pages/linhas/linhas';
 import { ConfiguracoesComponent } from '../pages/configuracoes/configuracoes.component';
 import { ReclamacaoComponent } from '../pages/reclamacoes/reclamacoes.component';
 import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.component';
+import { DetalhesOnibusComponent } from '../pages/detalhes_onibus/detalhes_onibus.component';
+import { RotaComponent } from '../pages/rota/rota.component';
+
+
 
 
 
@@ -17,6 +21,8 @@ import { TempoRealService } from '../pages/temporeal/temporeal.service';
 import { LinhasService } from '../pages/linhas/linhas.service';
 import { ParadasService } from '../pages/paradas/paradas.service';
 import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_paradas.service';
+import { DetalhesOnibusService } from '../pages/detalhes_onibus/detalhes_onibus.service';
+import { RotaService } from '../pages/rota/rota.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,9 @@ import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_parad
     TabsPage,
     ConfiguracoesComponent,
     ReclamacaoComponent,
-    DetalhesParadas
+    DetalhesParadas,
+    DetalhesOnibusComponent,
+    RotaComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp,{tabsHideOnSubPages: true})
@@ -41,8 +49,10 @@ import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_parad
     TabsPage,
     ConfiguracoesComponent,
     ReclamacaoComponent,
-    DetalhesParadas
+    DetalhesParadas,
+    DetalhesOnibusComponent,
+    RotaComponent
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService,DetalhesParadasService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService,DetalhesParadasService,DetalhesOnibusService,RotaService]
 })
 export class AppModule {}
