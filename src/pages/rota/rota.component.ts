@@ -24,6 +24,7 @@ export class RotaComponent implements OnInit {
     marker : any;
 	constructor(public navCtlr : NavController, public navParams : NavParams, public rs : RotaService, public loadingCtrl: LoadingController) {
 		this.dados = this.navParams.get('dados');
+		console.log(this.dados);
 	}
 
 	ngOnInit() {

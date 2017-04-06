@@ -23,6 +23,7 @@ export class TempoReal implements OnInit{
 	encontrado = false;
 	distancia: any;
 	icon = 'search';
+	mostrar_pesquisa = true;
 	
 
 	icon_zonas= ['bus','bus','bus','bus'];
@@ -115,7 +116,7 @@ export class TempoReal implements OnInit{
 
 
   abrirConfiguracoes(){
-  	this.navCtrl.push(ReclamacaoComponent);
+  	this.navCtrl.push(ConfiguracoesComponent);
   }
 
 
@@ -204,7 +205,6 @@ export class TempoReal implements OnInit{
     mostrarVeiculos(veiculos){
     	let date = new Date();
     	let minuto = date.getMinutes();
-  		this._veiculos = veiculos;
   		let texto : any;
   		var content2 : any;
   		let img_cadeirante : any;
@@ -262,6 +262,8 @@ export class TempoReal implements OnInit{
 
 			  	}
 
+			  	veiculos[i].Veiculos[y].texto = texto;
+
 
 
 			  	
@@ -300,6 +302,9 @@ export class TempoReal implements OnInit{
 			  	
   			}
   		}
+  		console.log(this._veiculos);
+  		console.log(veiculos);
+  		this._veiculos = veiculos;
   	}
 
 

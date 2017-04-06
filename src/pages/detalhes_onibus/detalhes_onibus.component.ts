@@ -3,6 +3,7 @@ import { NavController,NavParams } from 'ionic-angular';
 import { DetalhesOnibusService } from './detalhes_onibus.service';
 import { RotaComponent } from '../rota/rota.component';
 
+import { Geolocation } from 'ionic-native';
 
 declare var google;
 
@@ -15,7 +16,10 @@ export class DetalhesOnibusComponent implements OnInit {
 	dados : any;
 	endereco_atual_onibus : any;
 	@ViewChild('map') mapElement: ElementRef;
- 	map: any;
+ 	map: any
+ 	latitude : any;
+ 	longitude : any;
+ 	distancia : any;
 
 
 
@@ -27,6 +31,14 @@ export class DetalhesOnibusComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		Geolocation.getCurrentPosition().then((position) => {
+	    	this.latitude = position.coords.latitude;
+	    	this.longitude = position.coords.longitude;
+		   	this.dos.cal_distantancia_user_veic(this.latitude,this.longitude,this.dados.Lat,this.dados.Long).subscribe(
+		   		res => this.distancia = res)
+
+
+	   	});
 		this.dos.trans_lat_lon_end(this.dados.Lat, this.dados.Long).subscribe(res => this.endereco_atual_onibus = res);
 		this.loadMap();
 	}

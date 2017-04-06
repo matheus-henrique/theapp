@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers,RequestOptions } from '@angular/http'
 
+
 import 'rxjs/Rx';
 
 @Injectable()
 export class DetalhesOnibusService {
 	
 	constructor(private _http: Http) {}
-
+	latitude : any;
+	longitude : any;
 
 
 	trans_lat_lon_end(latitude,longitude){
@@ -17,5 +19,12 @@ export class DetalhesOnibusService {
 		let options = new RequestOptions({ headers : headers});
 		return this._http.get("http://127.0.0.1:8000/trans_lat_long_in_end/",options)
 			.map(res => res.json())
+	}
+
+
+	cal_distantancia_user_veic(latitude_user,longitude_user,latitude_bus,longitude_bus){
+		return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latitude_bus+","+longitude_bus+"&destinations="+latitude_user+","+longitude_user+"&key=AIzaSyBzoi-NFSqX9lo1mCotxpe6tktxlb5j14A")
+			.map(res => res.json())
+	 
 	}
 }

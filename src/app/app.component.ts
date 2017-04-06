@@ -4,6 +4,9 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
+
+declare var matheus : 'henrique';
+
 @Component({
   templateUrl: 'app.html'
 })

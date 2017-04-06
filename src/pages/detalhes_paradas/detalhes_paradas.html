@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title *ngIf="dados?.Linha">
+  <ion-navbar color="appcolor">
+    <ion-title *ngIf="dados?.Linha" style="text-align: center">
       {{dados.Linha?.Denomicao}}
     </ion-title>
-    <ion-title *ngIf="dados?.Denomicao">
+    <ion-title *ngIf="dados?.Denomicao" style="text-align: center">
       {{dados.Denomicao}}
     </ion-title>
-    <ion-title *ngIf="!dados">
+    <ion-title *ngIf="!dados" style="text-align: center">
       Defina o Tamanho do Raio
     </ion-title>
   </ion-navbar> 
@@ -26,7 +26,7 @@
 <ion-content>
 
  <ion-fab [hidden]="menu == 'detalhes'" right top *ngIf="dados?.Linha">
-      <button ion-fab secondary class="fab-map" color="secondary">
+      <button ion-fab secondary class="fab-map" color="appcolor">
         <ion-icon name='bus'></ion-icon>
         <h4>{{dados.Paradas?.length}}</h4>
       </button>

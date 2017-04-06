@@ -85,6 +85,7 @@ export class DetalhesParadas implements OnInit{
 
   	let marker = new google.maps.Marker({
   		position: {lat : latitude, lng : longitude},
+  		icon: '/assets/icon/male.png',
   		map: this.map
   	});
 
@@ -109,8 +110,8 @@ export class DetalhesParadas implements OnInit{
   marcar_parada_mais_proxima(){
   	let marker = new google.maps.Marker({
   		position: {lat: parseFloat(this.dados.Lat), lng: parseFloat(this.dados.Long)},
+  		icon :'/assets/icon/busstop.png',
   		map: this.map,
-  		icon: '/assets/icon/bustop.png'
 
   	});
 
@@ -151,6 +152,7 @@ export class DetalhesParadas implements OnInit{
   			this.paradas_radio.push(paradas[i]);
   			let _markerpoint = new google.maps.Marker({
   				position: {lat: parseFloat(paradas[i].Lat), lng: parseFloat(paradas[i].Long)},
+  				icon :'/assets/icon/busstop.png',
   				map : this.map
   			});
 
@@ -170,7 +172,7 @@ export class DetalhesParadas implements OnInit{
 		let _markerpoint = new google.maps.Marker({
 		    position: {lat: parseFloat(this.dados.Paradas[i].Lat), lng: parseFloat(this.dados.Paradas[i].Long)},
 		    map: this.map,//,
-		    icon: '/assets/icon/bustop.png'
+		    icon :'/assets/icon/busstop.png',
 		    //icon: "/assets/icon/button_S-6.png"
   			});
 

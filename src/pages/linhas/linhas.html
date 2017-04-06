@@ -1,19 +1,83 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      About
-    </ion-title>
+
+  <ion-navbar color="appcolor">
+  <ion-title [hidden] = "!mostrar_pesquisa" style="text-align: center;">Linhas</ion-title>
+  <ion-buttons end>
+      <button [hidden] = "!mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = false">
+        <ion-icon name="search"></ion-icon>
+      </button>
+   </ion-buttons>
+   <ion-searchbar [hidden] = mostrar_pesquisa
+    placeholder="Numero da  linha ex : 517"
+	  (ionInput)="onInput($event)"
+	  (ionCancel)="onCancel($event)">
+	</ion-searchbar>
+	<ion-buttons end>
+      <button [hidden] = "mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = true">
+        <ion-icon name="close"></ion-icon>
+      </button>
+   </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+<ion-list>
+<ion-list-header color="appcolor">
+	Zona Sul
+</ion-list-header>
+<div *ngFor="let item of linha; let i = index">
+	
+	 <ion-item *ngIf="item.zona == 'Sul'">
+		    <ion-icon style="color : #FFD500" name="bus" item-left></ion-icon>
+		    	 {{item.numero}} -  {{item.denomicao}}
+	</ion-item>
+</div>
+<ion-list-header color="appcolor">
+	Zona Sudeste
+</ion-list-header>
+<div *ngFor="let item of linha">
+	 <ion-item *ngIf="item.zona == 'Sudeste'">
+		    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
+		    	 {{item.numero}} -  {{item.denomicao}}
+	</ion-item>
+</div> 
+<ion-list-header color="appcolor">
+	Zona Leste
+</ion-list-header>
+<div *ngFor="let item of linha">
+	 <ion-item *ngIf="item.zona == 'Leste'">
+		     <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>
+		    	 {{item.numero}} -  {{item.denomicao}}
+	</ion-item>
+</div> 
+<ion-list-header color="appcolor">
+	Zona Norte
+</ion-list-header>
+<div *ngFor="let item of linha">
+	 <ion-item *ngIf="item.zona == 'Norte'">
+		    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>
+		    	 {{item.numero}} -  {{item.denomicao}}
+	</ion-item>
+</div> 
+<ion-list-header color="appcolor">
+	Terminal
+</ion-list-header>
+<div *ngFor="let item of linha">
+	 <ion-item *ngIf="item.zona == 'Terminal'">
+		     <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
+		    	 {{item.numero}} -  {{item.denomicao}}
+	</ion-item>
+</div> 
+</ion-list>
+
+<!--
 	<ion-list>
 	<ion-list-header>
     	Sudeste
   	</ion-list-header>
-	 <ion-item *ngFor="let item of sudeste">
-	    <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
-	    	 {{item.Numero}} -  {{item.Denomicao}}
+	 <ion-item *ngFor="let item of linha">
+	    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>
+	    	 {{item.numero}} -  {{item.denomicao}}
 	  </ion-item>
 	</ion-list>
 	<ion-list>
@@ -60,5 +124,5 @@
 	    <ion-icon name="bus" item-left></ion-icon>
 	    	 {{item.Numero}} -  {{item.Denomicao}}
 	  </ion-item>
-	</ion-list>
+	</ion-list> -->
 </ion-content>

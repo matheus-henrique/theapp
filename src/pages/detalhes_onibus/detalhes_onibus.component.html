@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="appcolor">
     <ion-title>
       Veiculo : {{dados.CodigoVeiculo}}
     </ion-title>
@@ -27,17 +27,17 @@
     <p>{{dados.Hora}}.</p>
   </ion-item>
    <ion-item *ngIf="dados.Cadeirante">
-    <ion-icon item-left large ><img style="width: 25px ! important" src="http://pessoascomdeficiencia.com.br/site/wp-content/uploads/2016/04/unnamed.jpg"></ion-icon>
+    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/adpt.png"></ion-icon>
     <h2>Este veículo é adaptado.</h2>
   </ion-item>
   <ion-item *ngIf="!dados.Cadeirante">
-    <ion-icon item-left large ><img style="width: 25px ! important" src="http://2.bp.blogspot.com/_Xo1nI_2EICc/TK0PNesxoII/AAAAAAAABVI/g8Q51G7wXp8/s1600/naoentra.jpg"></ion-icon>
+    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/noadpt.png"></ion-icon>
     <h2>Este veículo não é adptado.</h2>
   </ion-item>
 
   <ion-item>
-    <span item-left>18 min</span>
-    <span item-left>(2.6 mi)</span>
+    <span item-left>{{distancia?.rows[0].elements[0].duration.text}}</span>
+    <span item-left>({{distancia?.rows[0].elements[0].distance.text}})</span>
     <button ion-button icon-left clear item-right (click)="detalhes_rota()">
       <ion-icon name="navigate"></ion-icon>
       Rota

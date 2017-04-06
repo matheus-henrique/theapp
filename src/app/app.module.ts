@@ -12,8 +12,7 @@ import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.comp
 import { DetalhesOnibusComponent } from '../pages/detalhes_onibus/detalhes_onibus.component';
 import { RotaComponent } from '../pages/rota/rota.component';
 
-
-
+import { IonicStorageModule } from '@ionic/storage';
 
 
 //Services
@@ -38,9 +37,11 @@ import { RotaService } from '../pages/rota/rota.service';
     RotaComponent
   ],
   imports: [
-    IonicModule.forRoot(MyApp,{tabsHideOnSubPages: true})
+    IonicModule.forRoot(MyApp,{tabsHideOnSubPages: true}),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
+
   entryComponents: [
     MyApp,
     TempoReal,
