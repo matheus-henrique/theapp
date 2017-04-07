@@ -42,16 +42,13 @@
   <ion-content >
     <ion-list>
       <button ion-item (click)="abrirConfiguracoes()">
-        Noticias 
+       Configurações <ion-icon name="construct"></ion-icon>
+      </button>
+       <button  ion-item (click)="openPage(signupPage)">
+        Favoritos <ion-icon name="star"></ion-icon>
       </button>
       <button  ion-item (click)="openPage(signupPage)">
-        Reclamações
-      </button>
-       <button ion-item (click)="openPage(signupPage)">
-        Configurações
-      </button>
-       <button ion-item (click)="openPage(signupPage)">
-          {{matheus}}
+        Sobre <ion-icon name="alert"></ion-icon>
       </button>
     </ion-list>
   </ion-content>

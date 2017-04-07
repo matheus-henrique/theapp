@@ -22,37 +22,36 @@
   	</ion-item>
  </ion-list>
 
-<ion-list>
+<ion-list radio-group [(ngModel)]="opc_mapa">
 	<ion-list-header color="appcolor">
 	 <ion-icon name='brush' item-left></ion-icon>
 		Tipo do Mapa
 	</ion-list-header>
 	<ion-item>
-		 <ion-label>ROADMAP</ion-label>
-		 <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>
+		 <ion-label>Roadmap</ion-label>
+		<ion-radio value="ROADMAP" (click)="notify()"></ion-radio>
   	</ion-item>
   	 <ion-note padding>
   			Exibe o mapa de vias padrão. Esse é o tipo de mapa padrão.
   	</ion-note>
-
   	<ion-item>
-		 <ion-label>HYBRID</ion-label>
-		 <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>
+		 <ion-label>Hybrid</ion-label>
+		 <ion-radio value="HYBRID" (click)="notify()"></ion-radio>
 		 
   	</ion-item>
   	<ion-note padding>
   			Exibe uma combinação de visualizações normais e de satélite
   	</ion-note>
 	 <ion-item>
-		 <ion-label>SATELLITE</ion-label>
-		 <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>	 
+		 <ion-label>Satellite</ion-label>
+		 <ion-radio value="SATELLITE" (click)="notify()"></ion-radio>
   	</ion-item>
   	<ion-note padding>
 				Exibe imagens de satélite do Google Earth
 	</ion-note>
   	<ion-item>
-		 <ion-label>TERRAIN</ion-label>
-		 <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>	 
+		 <ion-label>Terrain</ion-label>
+		 <ion-radio value="TERRAIN" (click)="notify()"></ion-radio>
   	</ion-item>
   	 <ion-note padding>
   			Exibe um mapa físico baseado em informações do terreno. 
@@ -67,14 +66,19 @@
 		Zoom
 	</ion-list-header>
    <ion-item>
-	   <ion-range min="0" max="100" step="47" [(ngModel)]="brightness">
+	   <ion-range min="8" max="25" step="1" [(ngModel)]="zoom">
 	     <ion-icon small range-left name="search"></ion-icon>
 	     <ion-icon range-right name="search"></ion-icon>
 	   </ion-range>
 	</ion-item>
+
+  	 
 </ion-list>
-
-
+<ion-note padding></ion-note>
+<button color="appcolor" ion-button full icon-left>
+        <ion-icon name="eye"></ion-icon>
+          Previsualizar
+</button>
 
 
 </ion-content>

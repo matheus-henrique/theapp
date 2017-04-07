@@ -23,7 +23,7 @@ export class DetalhesOnibusService {
 
 
 	cal_distantancia_user_veic(latitude_user,longitude_user,latitude_bus,longitude_bus){
-		return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+latitude_bus+","+longitude_bus+"&destinations="+latitude_user+","+longitude_user+"&key=AIzaSyBzoi-NFSqX9lo1mCotxpe6tktxlb5j14A")
+		return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?mode=bicycling&origins="+latitude_bus+","+longitude_bus+"&destinations="+latitude_user+","+longitude_user+"&key=AIzaSyBzoi-NFSqX9lo1mCotxpe6tktxlb5j14A")
 			.map(res => res.json())
 	 
 	}

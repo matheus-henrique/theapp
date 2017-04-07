@@ -4,7 +4,7 @@ import { DetalhesOnibusService } from './detalhes_onibus.service';
 import { RotaComponent } from '../rota/rota.component';
 
 import { Geolocation } from 'ionic-native';
-
+import { Storage } from '@ionic/storage';
 declare var google;
 
 @Component({
@@ -24,13 +24,14 @@ export class DetalhesOnibusComponent implements OnInit {
 
 
 
-	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService) {
+	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService, public storage : Storage) {
 		this.dados = navParams.get('onibus');
 		this.calcula_visto_por_ultimo(this.dados);
 
 	}
 
 	ngOnInit() {
+		this.loadMap();
 		Geolocation.getCurrentPosition().then((position) => {
 	    	this.latitude = position.coords.latitude;
 	    	this.longitude = position.coords.longitude;
@@ -39,10 +40,37 @@ export class DetalhesOnibusComponent implements OnInit {
 
 
 	   	});
-		this.dos.trans_lat_lon_end(this.dados.Lat, this.dados.Long).subscribe(res => this.endereco_atual_onibus = res);
-		this.loadMap();
+		this.dos.trans_lat_lon_end(this.dados.Lat, this.dados.Long).subscribe(res => this.endereco_atual_onibus = res);	
+		console.log("Tou no OnInit");
 	}
 
+	ionViewWillEnter(){
+		console.log("entrou aqui");
+		let tipo_do_mapa;
+		 this.storage.ready().then(() => {
+		      this.storage.get('tipo_mapa').then((val) => {
+		      		 switch(val){
+		      		 	case 'ROADMAP':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.ROADMAP
+		      		 		break;
+		      		 	case 'HYBRID':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.HYBRID
+		      		 		break;
+		      		 	case 'SATELLITE':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.SATELLITE
+		      		 		break;
+		      		 	case 'TERRAIN':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.TERRAIN
+		      		 		break;
+
+		      		 }
+		      		 console.log(tipo_do_mapa);
+		      		this.map.setMapTypeId(tipo_do_mapa);
+		      		google.maps.event.trigger(this.mapElement.nativeElement, 'resize');
+		      })
+		  });
+
+	} 
 
 
 	detalhes_rota(){

@@ -7,6 +7,7 @@ import { TempoRealService } from './temporeal.service';
 import { ConfiguracoesComponent } from '../configuracoes/configuracoes.component';
 import { ReclamacaoComponent } from '../reclamacoes/reclamacoes.component';
 import { DetalhesOnibusComponent } from '../detalhes_onibus/detalhes_onibus.component';
+import { Storage } from '@ionic/storage';
 
 declare var google;
 
@@ -25,19 +26,51 @@ export class TempoReal implements OnInit{
 	icon = 'search';
 	mostrar_pesquisa = true;
 	
+	tipo_mapa : any;
+	localizacao : any;
+	zoom : any;
+	
 
 	icon_zonas= ['bus','bus','bus','bus'];
 	
 
 	mapOptions = {
 	      center: new google.maps.LatLng(-5.0782647, -42.7940927),
-	      zoom: 15,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	      zoom: 8,
+	      mapTypeId: google.maps.MapTypeId.SATELLITE
 
 	}
 
-	constructor(public navCtrl: NavController, private _temposervice: TempoRealService, private ac: AlertController,public loadingCtrl: LoadingController) {
+	constructor(public navCtrl: NavController, private _temposervice: TempoRealService, private ac: AlertController,public loadingCtrl: LoadingController,public storage: Storage) {
+			  storage.ready().then(() => {
 
+		      storage.get('tipo_mapa').then((val) => {
+		         	if(val == null){
+		         		storage.set('tipo_mapa','ROADMAP');
+		         		// this.mapOptions.mapTypeId = 'val';
+		         	}
+		      })
+
+		       storage.get('localizacao').then((val) => {
+		         	if(val == null){
+		         		storage.set('localizacao',false);
+		         	}else{
+		         		console.log('Fonte')
+		         	}
+
+
+		      })
+
+
+		        storage.get('zoom').then((val) => {
+		         	if(val == null){
+		         		storage.set('zoom','15')
+		         	}else{
+		         		this.mapOptions.zoom = val;
+		         	}
+		      })
+
+		     });
 	 }
 
 	 ngOnInit(){
@@ -55,18 +88,42 @@ export class TempoReal implements OnInit{
 	 			() => loading.dismiss())
 	 }
 
+	ionViewWillEnter(){
+		let tipo_do_mapa;
+		 this.storage.ready().then(() => {
+		      this.storage.get('tipo_mapa').then((val) => {
+		      		 switch(val){
+		      		 	case 'ROADMAP':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.ROADMAP
+		      		 		break;
+		      		 	case 'HYBRID':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.HYBRID
+		      		 		break;
+		      		 	case 'SATELLITE':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.SATELLITE
+		      		 		break;
+		      		 	case 'TERRAIN':
+		      		 		tipo_do_mapa = google.maps.MapTypeId.TERRAIN
+		      		 		break;
 
+		      		 }
+		      		 console.log(tipo_do_mapa);
+		      		this.map.setMapTypeId(tipo_do_mapa);
+		      		google.maps.event.trigger(this.mapElement.nativeElement, 'resize');
+		      })
+		  });
+
+	} 
 
 	carregarMapa(){
 	 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
-	    google.maps.event.trigger(this.mapElement.nativeElement, 'resize');
 
   }
 
 
   menumudar(){
-  	google.maps.event.trigger(this.map, 'resize');
+  	google.maps.event.trigger(this.mapElement.nativeElement, 'resize');
   }
 
 

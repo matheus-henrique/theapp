@@ -6,6 +6,7 @@ import { Paradas } from '../paradas/paradas';
 import { Geolocation } from 'ionic-native';
 
 import { DetalhesParadasService } from './detalhes_paradas.service';
+import { Storage } from '@ionic/storage';
 
 declare var google;
 
@@ -39,7 +40,7 @@ export class DetalhesParadas implements OnInit{
 
 	}
 
-	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController, public ds : DetalhesParadasService) {
+	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController, public ds : DetalhesParadasService,public storage : Storage) {
 		this.dados = navParams.get('dados');
 		
 		
@@ -53,6 +54,33 @@ export class DetalhesParadas implements OnInit{
 		console.log(this.dados);
 		
 	}
+
+	ionViewWillEnter(){
+	let tipo_do_mapa;
+	 this.storage.ready().then(() => {
+	      this.storage.get('tipo_mapa').then((val) => {
+	      		 switch(val){
+	      		 	case 'ROADMAP':
+	      		 		tipo_do_mapa = google.maps.MapTypeId.ROADMAP
+	      		 		break;
+	      		 	case 'HYBRID':
+	      		 		tipo_do_mapa = google.maps.MapTypeId.HYBRID
+	      		 		break;
+	      		 	case 'SATELLITE':
+	      		 		tipo_do_mapa = google.maps.MapTypeId.SATELLITE
+	      		 		break;
+	      		 	case 'TERRAIN':
+	      		 		tipo_do_mapa = google.maps.MapTypeId.TERRAIN
+	      		 		break;
+
+	      		 }
+	      		 console.log(tipo_do_mapa);
+	      		this.map.setMapTypeId(tipo_do_mapa);
+	      })
+	  });
+
+	} 
+
 
 	pegar_localizao_user(latitude,longitude){
 		this.latitude = latitude;

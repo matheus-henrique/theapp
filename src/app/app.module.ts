@@ -22,6 +22,8 @@ import { ParadasService } from '../pages/paradas/paradas.service';
 import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_paradas.service';
 import { DetalhesOnibusService } from '../pages/detalhes_onibus/detalhes_onibus.service';
 import { RotaService } from '../pages/rota/rota.service';
+import { Storage } from '@ionic/storage';
+
 
 @NgModule({
   declarations: [
