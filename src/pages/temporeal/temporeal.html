@@ -65,7 +65,10 @@
    <ion-list>
     <div *ngFor="let item of _veiculos">
      <ion-list-header color="appcolor">
-     {{item.CodigoLinha}} - {{item.Denomicao}}
+     {{item.CodigoLinha}} - {{item.Denomicao}} 
+      <button ion-button icon-center [disabled]="item.favorito" >
+   <ion-icon name="star" (click)="adicionarFavoritos(item.CodigoLinha)" [class.selecionado]="item.favorito"></ion-icon>
+</button>
     </ion-list-header>
         <ion-item *ngFor="let item2 of item.Veiculos" (click)="mostrarDetalhesOnibus(item2,item)">
           <ion-icon name='bus' item-left [style.color]="{Leste:'rgb(236,27,36)',Norte:'rgb(34,177,75)',Sul:'#FFD500',Sudeste:'rgb(0,128,254)',Terminal:'rgb(0,128,254)'}[item.Zona]"></ion-icon>

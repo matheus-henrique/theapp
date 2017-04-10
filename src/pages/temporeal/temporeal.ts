@@ -29,7 +29,10 @@ export class TempoReal implements OnInit{
 	tipo_mapa : any;
 	localizacao : any;
 	zoom : any;
+	vec_temp : any;
 	
+	opc_selecionado = 'naoselecionado';
+
 
 	icon_zonas= ['bus','bus','bus','bus'];
 	
@@ -72,6 +75,34 @@ export class TempoReal implements OnInit{
 
 		     });
 	 }
+
+
+	adicionarFavoritos(linha){
+		let fav_temp : any;
+		let teste = {linha : linha}
+
+		console.log(linha)
+		this.opc_selecionado = 'selecionado';
+		  this.storage.ready().then(() => {
+
+		      this.storage.get('favoritos').then((val) => {
+		         	if(val == null){
+		         		this.storage.set('favoritos', []);
+		         		// this.mapOptions.mapTypeId = 'val';
+		         	}else{
+		         		this.storage.get('favoritos').then((val) =>{
+		         			fav_temp = val;
+		         			fav_temp.push(teste);
+		         			
+		         			this.storage.set('favoritos',fav_temp);
+		         			console.log(val);
+		         		});
+
+		         	}
+		      })
+		  });
+	}
+
 
 	 ngOnInit(){
 	 	this.carregarMapa();
@@ -179,8 +210,10 @@ export class TempoReal implements OnInit{
 
   veiculoEspecifico(ev){
   		var valor = ev.target.value;
-  		setTimeout(this._temposervice.veiculo_especifico_tempo_real(valor)
-  			.subscribe(res => console.log(res)),5000)
+  		this._veiculos = this.vec_temp;
+  		this._veiculos = this._veiculos.filter((vec) => {
+  			 return (vec.CodigoLinha.indexOf(valor.toLowerCase()) > -1);
+  		});
 
   }
 
@@ -307,6 +340,7 @@ export class TempoReal implements OnInit{
 			  	d.setMinutes(d.getMinutes() - teste2);
 			  	d.setSeconds(d.getSeconds() - teste3);
 
+
 			  	if(d.getHours() > 0){
 			  		texto = "Há "+ d.getHours() + " Horas e "+ d.getMinutes() + " minuto(s) atrás";
 			  	}
@@ -320,6 +354,27 @@ export class TempoReal implements OnInit{
 			  	}
 
 			  	veiculos[i].Veiculos[y].texto = texto;
+
+
+			  	veiculos[i].favorito = false;
+			  	 this.storage.ready().then(() => {
+
+			      this.storage.get('favoritos').then((val) => {
+			         	if(val == null){
+			         		this.storage.set('favoritos', []);
+			         	}else{
+			         		console.log(val);
+			         		console.log(val.length)
+			         		/*for(let k = 0; k < val.length; k++){
+			         			if(val[k].linha == veiculos[i].CodigoLinha)
+			         				veiculos[i].favorito = true;
+			         				console.log("Entrou aqui");
+	
+			         		}*/
+			         	}
+			         		
+			 		 })
+			 	 });
 
 
 
@@ -359,9 +414,9 @@ export class TempoReal implements OnInit{
 			  	
   			}
   		}
-  		console.log(this._veiculos);
   		console.log(veiculos);
   		this._veiculos = veiculos;
+  		this.vec_temp = veiculos;
   	}
 
 

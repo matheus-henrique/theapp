@@ -23617,3 +23617,11 @@ ion-content.cards-bg {
   width: 100%;
   height: 100%;
 }
+
+.ios page-home .selecionado, .md page-home .selecionado, .wp page-home .selecionado {
+  color: yellow;
+}
+
+.ios page-home .naoselecionado, .md page-home .naoselecionado, .wp page-home .naoselecionado {
+  color: white;
+}
