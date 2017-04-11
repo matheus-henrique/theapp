@@ -11,6 +11,7 @@ import { ReclamacaoComponent } from '../pages/reclamacoes/reclamacoes.component'
 import { DetalhesParadas } from '../pages/detalhes_paradas/detalhes_paradas.component';
 import { DetalhesOnibusComponent } from '../pages/detalhes_onibus/detalhes_onibus.component';
 import { RotaComponent } from '../pages/rota/rota.component';
+import { FavoritosComponent } from '../pages/favoritos/favoritos.component';
 
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -36,7 +37,8 @@ import { Storage } from '@ionic/storage';
     ReclamacaoComponent,
     DetalhesParadas,
     DetalhesOnibusComponent,
-    RotaComponent
+    RotaComponent,
+    FavoritosComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp,{tabsHideOnSubPages: true}),
@@ -54,7 +56,8 @@ import { Storage } from '@ionic/storage';
     ReclamacaoComponent,
     DetalhesParadas,
     DetalhesOnibusComponent,
-    RotaComponent
+    RotaComponent,
+    FavoritosComponent
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},TempoRealService,LinhasService,ParadasService,DetalhesParadasService,DetalhesOnibusService,RotaService]
 })

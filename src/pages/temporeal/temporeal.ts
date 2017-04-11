@@ -8,6 +8,7 @@ import { ConfiguracoesComponent } from '../configuracoes/configuracoes.component
 import { ReclamacaoComponent } from '../reclamacoes/reclamacoes.component';
 import { DetalhesOnibusComponent } from '../detalhes_onibus/detalhes_onibus.component';
 import { Storage } from '@ionic/storage';
+import { FavoritosComponent } from '../favoritos/favoritos.component';
 
 declare var google;
 
@@ -30,7 +31,9 @@ export class TempoReal implements OnInit{
 	localizacao : any;
 	zoom : any;
 	vec_temp : any;
-	
+
+
+	favoritos = [];
 	opc_selecionado = 'naoselecionado';
 
 
@@ -77,10 +80,16 @@ export class TempoReal implements OnInit{
 	 }
 
 
-	adicionarFavoritos(linha){
-		let fav_temp : any;
-		let teste = {linha : linha}
 
+	abrirFavoritos(){
+		this.navCtrl.push(FavoritosComponent,{favoritos : this.favoritos});
+	}
+
+
+	adicionarFavoritos(linha, item){
+		let fav_temp : any;
+		let teste = {linha : linha};
+		this.favoritos.push(item);
 		console.log(linha)
 		this.opc_selecionado = 'selecionado';
 		  this.storage.ready().then(() => {
@@ -356,21 +365,21 @@ export class TempoReal implements OnInit{
 			  	veiculos[i].Veiculos[y].texto = texto;
 
 
-			  	veiculos[i].favorito = false;
 			  	 this.storage.ready().then(() => {
 
 			      this.storage.get('favoritos').then((val) => {
 			         	if(val == null){
 			         		this.storage.set('favoritos', []);
 			         	}else{
-			         		console.log(val);
-			         		console.log(val.length)
-			         		/*for(let k = 0; k < val.length; k++){
-			         			if(val[k].linha == veiculos[i].CodigoLinha)
-			         				veiculos[i].favorito = true;
-			         				console.log("Entrou aqui");
-	
-			         		}*/
+			        		for(let k = 0; k < val.length; k++)
+			        			if(val[k].linha == veiculos[i].CodigoLinha && veiculos[i].favorito != true){
+			        				veiculos[i].favorito = true;
+			        				this.favoritos.push(veiculos[i]);
+			        				veiculos.unshift(veiculos[i]);
+			        				veiculos.splice(i + 1,1);
+			        				console.log(val);
+			        				console.log("Entrou");
+			        			}
 			         	}
 			         		
 			 		 })
@@ -429,6 +438,11 @@ export class TempoReal implements OnInit{
 
   		this._temposervice.todos_veiculos_tempo_real()
 	 		.subscribe(res => this.mostrarVeiculos(res))
+  	}
+
+
+  	marcarFavoritos(){
+
   	}
 
 

@@ -44,7 +44,7 @@
       <button ion-item (click)="abrirConfiguracoes()">
        Configurações <ion-icon name="construct"></ion-icon>
       </button>
-       <button  ion-item (click)="openPage(signupPage)">
+       <button  ion-item (click)="abrirFavoritos()">
         Favoritos <ion-icon name="star"></ion-icon>
       </button>
       <button  ion-item (click)="openPage(signupPage)">
@@ -66,8 +66,8 @@
     <div *ngFor="let item of _veiculos">
      <ion-list-header color="appcolor">
      {{item.CodigoLinha}} - {{item.Denomicao}} 
-      <button ion-button icon-center [disabled]="item.favorito" >
-   <ion-icon name="star" (click)="adicionarFavoritos(item.CodigoLinha)" [class.selecionado]="item.favorito"></ion-icon>
+      <button ion-button icon-center [disabled]="item.favorito" (click)="adicionarFavoritos(item.CodigoLinha, item); item.favorito = true" color="dark" clear >
+   <ion-icon name="star" [class.selecionado]="item.favorito"></ion-icon>
 </button>
     </ion-list-header>
         <ion-item *ngFor="let item2 of item.Veiculos" (click)="mostrarDetalhesOnibus(item2,item)">
