@@ -1,11 +1,8 @@
 <ion-header>
   <ion-navbar color="appcolor">
     <ion-title style="text-align: center">
-      Favoritos
+      Favoritos ({{favoritos.length}})
     </ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only (click)="addNote()"><ion-icon name="add"></ion-icon></button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -15,12 +12,18 @@
 			  <ion-item>
 			    <ion-icon name='bus' item-left [style.color]="{Leste:'rgb(236,27,36)',Norte:'rgb(34,177,75)',Sul:'#FFD500',Sudeste:'rgb(0,128,254)',Terminal:'rgb(0,128,254)'}[fav.Zona]"></ion-icon>
 			  	{{fav.CodigoLinha}} - {{fav.Denomicao}}
+			  	<p>
+			  		{{fav.Veiculos.length}} Veículo(s) na linha.
+			  	</p>
 			  </ion-item>
 		    <ion-item-options>
                 <button ion-button icon-only (click)="deletarFavorito(fav.CodigoLinha,fav)" danger>
                     <ion-icon name="trash"></ion-icon>
                 </button>
             </ion-item-options>
-		</ion-item-sliding>
+	</ion-item-sliding>
+	<div *ngIf="favoritos.length == 0">
+		<h1 style="text-align: center">Você não possui nenhuma linha como favorita.</h1>
+	</div>
 	</ion-list>
 </ion-content>

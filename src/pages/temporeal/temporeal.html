@@ -34,21 +34,21 @@
 </ion-header>
 
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
+  <ion-header >
+    <ion-toolbar color="appcolor">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content >
     <ion-list>
       <button ion-item (click)="abrirConfiguracoes()">
-       Configurações <ion-icon name="construct"></ion-icon>
+       Configurações <ion-icon name="construct" color="appcolor"></ion-icon>
       </button>
        <button  ion-item (click)="abrirFavoritos()">
-        Favoritos <ion-icon name="star"></ion-icon>
+        Favoritos ({{favoritos.length}}) <ion-icon name="star" color="appcolor"></ion-icon>
       </button>
       <button  ion-item (click)="openPage(signupPage)">
-        Sobre <ion-icon name="alert"></ion-icon>
+        Sobre <ion-icon name="alert" color="appcolor"></ion-icon>
       </button>
     </ion-list>
   </ion-content>
@@ -57,6 +57,14 @@
 <ion-nav id="nav" #content [root]="rootPage"></ion-nav>
 
 <ion-content>
+ <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="menu == 'detalhes'">
+    <ion-refresher-content
+       pullingIcon="arrow-dropdown"
+       pullingText="Atualizar"
+       refreshingSpinner="circles"
+       refreshingText="Atualizando...">
+    </ion-refresher-content>
+ </ion-refresher> 
  <div #map id="map" [hidden]="menu == 'detalhes'">
      
  </div>
@@ -99,5 +107,7 @@
       <button  [hidden]="icon_zonas[0] == 'undo' || icon_zonas[1] == 'undo' || icon_zonas[2] == 'undo' || icon_zonas[3] == 'undo'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
+
+
  
 </ion-content>

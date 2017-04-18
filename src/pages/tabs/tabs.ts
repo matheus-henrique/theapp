@@ -14,7 +14,7 @@ export class TabsPage {
   tab2Root: any = Paradas;
   tab3Root: any = Linhas;
 
-  constructor() {
 
+  constructor() {
   }
 }

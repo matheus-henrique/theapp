@@ -20,7 +20,7 @@ export class TempoReal implements OnInit{
 	menu = 'detalhes';
 	@ViewChild('map') mapElement: ElementRef;
 	map: any;
-	_veiculos: any;
+	public _veiculos: any;
 	_marker = [];
 	encontrado = false;
 	distancia: any;
@@ -31,6 +31,8 @@ export class TempoReal implements OnInit{
 	localizacao : any;
 	zoom : any;
 	vec_temp : any;
+
+	atualizou = false;
 
 
 	favoritos = [];
@@ -85,12 +87,19 @@ export class TempoReal implements OnInit{
 		this.navCtrl.push(FavoritosComponent,{favoritos : this.favoritos});
 	}
 
-
+	doRefresh(refresher){
+		this.atualizou = true;
+  		this._temposervice.todos_veiculos_tempo_real()
+	 		.subscribe(res => this.mostrarVeiculos(res),
+	 			err => console.log(err),
+	 			() => refresher.complete())
+	}
 	adicionarFavoritos(linha, item){
 		let fav_temp : any;
 		let teste = {linha : linha};
 		this.favoritos.push(item);
 		console.log(linha)
+		console.log(this.favoritos);
 		this.opc_selecionado = 'selecionado';
 		  this.storage.ready().then(() => {
 
@@ -308,6 +317,7 @@ export class TempoReal implements OnInit{
   		var content2 : any;
   		let img_cadeirante : any;
   		let img = '';
+  		this.favoritos = [];
   		for(let i = 0; i < veiculos.length; i++){
   			for(let y = 0; y < veiculos[i].Veiculos.length; y++){
   				if(veiculos[i].Zona == "Norte"){
@@ -373,12 +383,13 @@ export class TempoReal implements OnInit{
 			         	}else{
 			        		for(let k = 0; k < val.length; k++)
 			        			if(val[k].linha == veiculos[i].CodigoLinha && veiculos[i].favorito != true){
-			        				veiculos[i].favorito = true;
-			        				this.favoritos.push(veiculos[i]);
+		        					veiculos[i].favorito = true;
+		        					this.favoritos.push(veiculos[i]);
 			        				veiculos.unshift(veiculos[i]);
 			        				veiculos.splice(i + 1,1);
-			        				console.log(val);
-			        				console.log("Entrou");
+			        			
+			        				
+			        				
 			        			}
 			         	}
 			         		
@@ -427,8 +438,7 @@ export class TempoReal implements OnInit{
   		this._veiculos = veiculos;
   		this.vec_temp = veiculos;
   	}
-
-
+ 
 
   	atualizar(){
   		console.log("Entrei");
