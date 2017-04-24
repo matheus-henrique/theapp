@@ -5,6 +5,7 @@ import { RotaComponent } from '../rota/rota.component';
 
 import { Geolocation } from 'ionic-native';
 import { Storage } from '@ionic/storage';
+import { AlertController } from 'ionic-angular';
 declare var google;
 
 @Component({
@@ -24,7 +25,7 @@ export class DetalhesOnibusComponent implements OnInit {
 
 
 
-	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService, public storage : Storage) {
+	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService, public storage : Storage,public alertCtrl: AlertController) {
 		this.dados = navParams.get('onibus');
 		this.calcula_visto_por_ultimo(this.dados);
 
@@ -32,6 +33,7 @@ export class DetalhesOnibusComponent implements OnInit {
 
 	ngOnInit() {
 		this.loadMap();
+		
 		Geolocation.getCurrentPosition().then((position) => {
 	    	this.latitude = position.coords.latitude;
 	    	this.longitude = position.coords.longitude;
@@ -76,6 +78,23 @@ export class DetalhesOnibusComponent implements OnInit {
 	detalhes_rota(){
 		this.navCtrl.push(RotaComponent,{dados : this.dados});
 	}
+	mostraFotoVeiculo(){
+		this.dos.mostrar_foto_onibus(this.dados.CodigoVeiculo).subscribe( res => {
+			let link_img = res[0][1];
+			let link_img_modificado = link_img.replace('/t/','/p/');
+			let alert = this.alertCtrl.create({
+				title: 'Foto',
+				subTitle: "<img style='text-aling:center'src='"+link_img_modificado+"'>"+"<p style='text-align: center;'>© Todos os direitos reservados ao fotógrafo & o site <a href=http://onibusbrasil.com/''>Onibus Brasil.</a></p>"+
+				"<p style=font-size: 32>*Se você representa alguma das partes e não autoriza o uso da imagem, por favor entre em contato.<p>",
+				cssClass: 'appcolor',
+				buttons: ['OK']
+			});
+
+			alert.present();
+		});
+	}
+
+
 
 	calcula_visto_por_ultimo(veiculo){
 			let d = new Date();

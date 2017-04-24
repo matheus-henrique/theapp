@@ -27,4 +27,11 @@ export class DetalhesOnibusService {
 			.map(res => res.json())
 	 
 	}
+
+
+	mostrar_foto_onibus(numvec){
+
+		return this._http.get("http://onibusbrasil.com/ajax/busca.php?o1=&o2="+numvec+"&o3=&o4=&o5=&o6=41820&o7=&o8=&o9=&o10=d&o11=1&o12=15&o13=1&o14=0&o15=")
+			.map(res => res.json())
+	}
 }

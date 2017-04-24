@@ -26,6 +26,11 @@
     <h2>Ultima vez que foi visto</h2>
     <p>{{dados.Hora}}.</p>
   </ion-item>
+   <ion-item>
+  <ion-icon name="image" item-left large></ion-icon>
+      <button ion-button color="appcolor" (click)="mostraFotoVeiculo()">Ver foto do veículo</button>
+  </ion-item>
+
    <ion-item *ngIf="dados.Cadeirante">
     <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/adpt.png"></ion-icon>
     <h2>Este veículo é adaptado.</h2>
@@ -34,7 +39,7 @@
     <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/noadpt.png"></ion-icon>
     <h2>Este veículo não é adptado.</h2>
   </ion-item>
-
+ 
   <ion-item>
     <span item-left>{{distancia?.rows[0].elements[0].duration.text}}</span>
     <span item-left>({{distancia?.rows[0].elements[0].distance.text}})</span>
