@@ -84,7 +84,7 @@ export class DetalhesOnibusComponent implements OnInit {
 			let link_img_modificado = link_img.replace('/t/','/p/');
 			let alert = this.alertCtrl.create({
 				title: 'Foto',
-				subTitle: "<img style='text-aling:center'src='"+link_img_modificado+"'>"+"<p style='text-align: center;'>© Todos os direitos reservados ao fotógrafo & o site <a href=http://onibusbrasil.com/''>Onibus Brasil.</a></p>"+
+				subTitle: "<img style='text-aling:center'src='"+link_img_modificado+"'>"+"<p style='text-align: center;'>© Todos os direitos reservados ao fotógrafo(nome no canto inferior direito da imagem) & o site <a href=http://onibusbrasil.com/''>Onibus Brasil.</a></p>"+
 				"<p style=font-size: 32>*Se você representa alguma das partes e não autoriza o uso da imagem, por favor entre em contato.<p>",
 				cssClass: 'appcolor',
 				buttons: ['OK']
