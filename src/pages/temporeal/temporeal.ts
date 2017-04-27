@@ -89,6 +89,12 @@ export class TempoReal implements OnInit{
 
 	doRefresh(refresher){
 		this.atualizou = true;
+
+		for(let i = 0; i < this._marker.length; i++){
+  				this._marker[i].setMap(null);
+  		}
+
+
   		this._temposervice.todos_veiculos_tempo_real()
 	 		.subscribe(res => this.mostrarVeiculos(res),
 	 			err => console.log(err),
