@@ -14,13 +14,13 @@ export class TempoRealService {
 
 
 	todos_veiculos_tempo_real(){
-		return this._http.get("http://127.0.0.1:8000/linhas/")
+		return this._http.get("https://thebusapi.herokuapp.com/linhas/")
 			.map(res => res.json())
 	}
 
 
 	veiculo_especifico_tempo_real(valor : string){
-		return this._http.get("http://127.0.0.1:8000/linhas/"+valor+"/")
+		return this._http.get("http://thebusapi.herokuapp.com/linhas/"+valor+"/")
 			.take(10)
 			.map(res => res.json())
 	}

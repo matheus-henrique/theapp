@@ -12,7 +12,7 @@ export class ParadasService {
 
 
 	pegar_linha_especifica(num){
-		return this._http.get("http://127.0.0.1:8000/parada_especifica/"+num)
+		return this._http.get("https://thebusapi.herokuapp.com/parada_especifica/"+num)
 			.map(res => res.json())
 	}
 
@@ -22,7 +22,7 @@ export class ParadasService {
 		headers.append('Latitude',latitude);
 		headers.append('Longitude',longitude);
 		let options = new RequestOptions({ headers : headers});
-		return this._http.get("http://127.0.0.1:8000/parada_proxima/",options)
+		return this._http.get("https://thebusapi.herokuapp.com/parada_proxima/",options)
 			.map(res => res.json())
 	}
 }

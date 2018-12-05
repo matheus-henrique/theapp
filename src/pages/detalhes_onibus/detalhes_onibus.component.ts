@@ -3,7 +3,7 @@ import { NavController,NavParams } from 'ionic-angular';
 import { DetalhesOnibusService } from './detalhes_onibus.service';
 import { RotaComponent } from '../rota/rota.component';
 
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 declare var google;
@@ -25,7 +25,7 @@ export class DetalhesOnibusComponent implements OnInit {
 
 
 
-	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService, public storage : Storage,public alertCtrl: AlertController) {
+	constructor(public navCtrl : NavController, public navParams: NavParams, public dos : DetalhesOnibusService, public storage : Storage,public alertCtrl: AlertController, public geolocation: Geolocation) {
 		this.dados = navParams.get('onibus');
 		this.calcula_visto_por_ultimo(this.dados);
 
@@ -34,7 +34,7 @@ export class DetalhesOnibusComponent implements OnInit {
 	ngOnInit() {
 		this.loadMap();
 		
-		Geolocation.getCurrentPosition().then((position) => {
+		this.geolocation.getCurrentPosition().then((position) => {
 	    	this.latitude = position.coords.latitude;
 	    	this.longitude = position.coords.longitude;
 		   	this.dos.cal_distantancia_user_veic(this.latitude,this.longitude,this.dados.Lat,this.dados.Long).subscribe(

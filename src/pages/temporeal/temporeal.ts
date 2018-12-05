@@ -231,6 +231,10 @@ export class TempoReal implements OnInit{
   	this.navCtrl.push(ConfiguracoesComponent);
   }
 
+  abrirReclamacao(){
+	this.navCtrl.push(ReclamacaoComponent);
+}
+
 
   veiculoEspecifico(ev){
   		var valor = ev.target.value;

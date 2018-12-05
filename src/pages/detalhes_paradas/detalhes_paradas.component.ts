@@ -3,7 +3,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 import { NavController,NavParams,ToastController } from 'ionic-angular';
 import { Paradas } from '../paradas/paradas';
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { DetalhesParadasService } from './detalhes_paradas.service';
 import { Storage } from '@ionic/storage';
@@ -40,7 +40,7 @@ export class DetalhesParadas implements OnInit{
 
 	}
 
-	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController, public ds : DetalhesParadasService,public storage : Storage) {
+	constructor(public navCtrl : NavController, public navParams : NavParams, public tc : ToastController, public ds : DetalhesParadasService,public storage : Storage, public geolocation: Geolocation) {
 		this.dados = navParams.get('dados');
 		
 		
@@ -91,7 +91,7 @@ export class DetalhesParadas implements OnInit{
 	loadMap(){
 
 	    this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
-	    Geolocation.getCurrentPosition().then((position) => {
+	    this.geolocation.getCurrentPosition().then((position) => {
 	    	this.latitude = position.coords.latitude;
 	    	this.longitude = position.coords.longitude;
 		    if(this.dados){

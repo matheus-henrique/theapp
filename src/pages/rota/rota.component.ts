@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef,OnInit } from '@angular/core';
 import { NavController,NavParams,LoadingController } from 'ionic-angular';
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { RotaService } from './rota.service';
 
@@ -24,7 +24,7 @@ export class RotaComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     marker : any;
-	constructor(public navCtlr : NavController, public navParams : NavParams, public rs : RotaService, public loadingCtrl: LoadingController,public storage : Storage) {
+	constructor(public navCtlr : NavController, public navParams : NavParams, public rs : RotaService, public loadingCtrl: LoadingController,public storage : Storage, public geolocation : Geolocation) {
 		this.dados = this.navParams.get('dados');
 		console.log(this.dados);
 	}
@@ -63,7 +63,7 @@ export class RotaComponent implements OnInit {
 	loadMap(){
 		this.map = new google.maps.Map(this.mapElement.nativeElement, this.mapOptions);
 
-		Geolocation.getCurrentPosition().then((position) => {
+		this.geolocation.getCurrentPosition().then((position) => {
 			 let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 			 let directionsService = new google.maps.DirectionsService();
 			 let directionsDisplay = new google.maps.DirectionsRenderer();

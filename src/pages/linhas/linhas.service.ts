@@ -7,13 +7,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class LinhasService {
 
-	url = "http://127.0.0.1:8000/linha/zona/"
+	url = "https://thebusapi.herokuapp.co/zona/"
 	
 	constructor(private _http : Http) {}
 
 
 	pegarTodasAsLinhas(){
-		return this._http.get("http://127.0.0.1:8000/todasaslinhasestaticas/").map(res => res.json())
+		return this._http.get("https://thebusapi.herokuapp.com/todasaslinhasestaticas/").map(res => res.json())
 	}
 
 	linhasZonaSul(){

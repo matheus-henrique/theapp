@@ -1,48 +1,42 @@
 <ion-header></ion-header>
 <ion-content>
+    <ion-fab right bottom>
+        <button ion-fab (click)="abrirCriarReclamacao()"><ion-icon name="add"></ion-icon></button>
+      </ion-fab>
+  <ion-card *ngFor="let item of reclamacaosobj;">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAMFBMVEX29vKdnZPKysOoqJ/V1c6+vrejo5ng4Nrw8Oyzs6vr6+bExL3a2tSurqW5ubHl5eBEZuBoAAAEKUlEQVR4nO2di5KDIAxFxSfa1v7/324dd7cPbVW44aZMzhdwJwRCCKEoDMMwDMMwDMMwDMMwDMN4puvKcuyrqh/LsuvYowljKJvKvVA15cAe1zGup4WIfzGnK3t0exnKtyp+tXyFXbrms4qZRrvDdP0eGRO9ZinDLmv8W0XtBCvbIzqca0v2iFcZLsdkTFwUGqU+aI5fo9Tscb9yCpExcWKP/Al/yMufaTx79Hd8gHvcuahREqdDkZKIeTXTsBXMBPv5HRUef47X4dyZreK2DwbtH6+0fDcZETqcG9k6IBNrgj25Ns5Q+6m4OmqUDue4URfMIGSTAA3CNQnQIFSTdEgdzvFO8dFB1jO8kAuyqd9pWTpgm+EfrE0RPLN4cws8s2hzC7xmTXDWrRIvhJOx253m3U9PEYLX4RxDx1VCCOMSCBow/sFwEkDyZAkjnSLg6xxvh2+HE4Qt0UvocC59WkhgX59Iv7fDQ9+Z9AGwQIAykX79zUYIKFX6SvrUqcg2wthIshESed32jktyITI6CIG8CTEhJsSEmBATYkJyEiIUa1n0a0KETojpL62yObNnI0Qor5U+QZdNpjGb3K/Q1p5eh8zWnj6JktFFj8j6y7hDFLkMZVTRiay/lBoOCSEMHRLLFmPREijXYhVsZVMdJFCMQnqPnEsFHf6QyHp7AXcS1pNXuJPQnuxDS+OZxfHgki3e2zfwuZ34Ogm6ANNK4wtwlMJ8HwoN5alNIHJ5Y4XcE7kNIAacEHL7B1i8xX7jCnN3er8XkLuTX7gWsKyQgrYiEJPwDQIyiQKDQEyiwSAQk6gwCMAkOgwCMIkSg0SbRItBok2ixiCRJuFkrteJMgk9ynokwiR6PGQiwiSKPOSGD86nMHMnawTnU1R0pHogOFenytWLiNIU9sAXBK5bmjaRmcCKDs5T/E8Eers2Xw9O1enry2pCtGFCtGFCtGFCtJGNkMAQRUmr3weyCRoDw3hdqYci4mDFb/T7TPBRl90e95VMGuBHZOiUOUlEwZOuuRXxBkPVAhxVNqAos+WjrhUqPStwZP2ZmjAllzvEXK6nIbVn/Gjeo74kIHt8h+vkz1yFB+h7hZFVDHjsH7E9UP4aw8ugSDkLtXy4hV4Jg8jNDw/jSPRdoq+F2lY8MtbSq/G5EWkqu6RtBKfYh59AJRD6XVTYMd5oQbuLr8VWqS16oLtcUznGOm2DmWI8Y9zpo+N8z/CMNaoyZob5o9+ZStIGS1ElYyJQSthvprIE/JXaCbVmi+Vy7PzlRf4bwHA6ML9wB1gJ9h+KFZtjZt9VRMjXy6nZ89XzVeFitaTdjFpEOgJJsLEQf42ODSVfpOOjkq/S8UGJyD9Ikrzx+PBCfRZvvhVWcIA6yupFqlBPT1lW7lUwf0inpl1u8SI5aXkWF6nAngdp+TPJDwwXRUtT6q+sAAAAAElFTkSuQmCC">
+      </ion-avatar>
+      <h2>{{item.user}}</h2>
+      <p>{{item.created_at}}</p>
+    </ion-item>
   
-  <ion-card>
-
-  <ion-item>
-    <ion-avatar item-left>
-      <img src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png">
-    </ion-avatar>
-    <h2>Anonimo</h2>
-    <p>November 5, 1955</p>
-  </ion-item>
-
-  <img src="http://acontecebotucatu.com.br/portal/wp-content/uploads/2016/12/c30f4528-02fe-4410-98df-bfb81631809d.jpg">
-
-  <ion-card-content>
-    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
-  </ion-card-content>
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <img src="https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/like-128.png"/>
-        <div>12</div>
-      </button>
-
-    </ion-col>
-    <ion-col>
-       <button ion-button icon-left clear small>
-        <img src="http://vignette2.wikia.nocookie.net/agk/images/9/9c/Angry_face.png/revision/latest?cb=20130805025414"/>
-        <div>12</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small>
-        <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
-      </button>
-    </ion-col>
-    <ion-col center text-center>
-      <ion-note>
-        11h ago
-      </ion-note>
-    </ion-col>
-  </ion-row>
-
+    <img src="http://localhost:8000{{item.img}}">
+  
+    <ion-card-content>
+      <p>{{item.texto}}</p>
+    </ion-card-content>
+  
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{item.like}} Curtiram</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="text"></ion-icon>
+          <div>0 Comentarios</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  
   </ion-card>
 </ion-content>

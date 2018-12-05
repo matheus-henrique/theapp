@@ -13,7 +13,7 @@ export class RotaService {
 		headers.append('Longitude',longitude);
 		headers.append('Linha',linha);
 		let options = new RequestOptions({ headers : headers});
-		return this._http.get("http://127.0.0.1:8000/parada_proxima/",options)
+		return this._http.get("https://thebusapi.herokuapp.com/linhas/parada_proxima/",options)
 			.map(res => res.json())
 	}
 }

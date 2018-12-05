@@ -9,7 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar} from '@ionic-native/statusbar';
+import { Splashscreen } from '@ionic-native/splashscreen';
 import { TabsPage } from '../pages/tabs/tabs';
 var MyApp = (function () {
     function MyApp(platform) {

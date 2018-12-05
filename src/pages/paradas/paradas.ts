@@ -4,7 +4,7 @@ import { NavController,AlertController,LoadingController  } from 'ionic-angular'
 import { ParadasService } from './paradas.service';
 
 import { DetalhesParadas } from '../detalhes_paradas/detalhes_paradas.component';
-import { Geolocation } from 'ionic-native';
+import { Geolocation } from '@ionic-native/geolocation';
  
 
 
@@ -14,7 +14,7 @@ import { Geolocation } from 'ionic-native';
 })
 export class Paradas{
 
-  constructor(public navCtrl: NavController, public ps: ParadasService, public ac : AlertController,public loadingCtrl: LoadingController){
+  constructor(public navCtrl: NavController, public ps: ParadasService, public ac : AlertController,public loadingCtrl: LoadingController, public geolocation: Geolocation){
 
   }
 
@@ -85,7 +85,7 @@ export class Paradas{
             content: 'Carregando...'
     });
     loading.present();
-    Geolocation.getCurrentPosition().then((position) => {
+    this.geolocation.getCurrentPosition().then((position) => {
         this.ps.parada_mais_proxima(position.coords.latitude,position.coords.longitude).subscribe(res => {
           this.navCtrl.push(DetalhesParadas, {dados : res})
         },
