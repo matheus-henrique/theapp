@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PhotoLibrary } from '@ionic-native/photo-library';
+import { CriarPublicacaoService } from './criar-publicacao.service';
+import { ReclamacaoComponent } from '../reclamacoes/reclamacoes.component';
 /**
  * Generated class for the CriarPublicacaoPage page.
  *
@@ -16,7 +18,8 @@ import { PhotoLibrary } from '@ionic-native/photo-library';
 })
 export class CriarPublicacaoPage {
   photo: string = '';
-  constructor(public photoLibrary : PhotoLibrary, public camera : Camera, public navCtrl: NavController, public navParams: NavParams) {
+  public msgproblema;
+  constructor(public loadingCtrl: LoadingController, public cp : CriarPublicacaoService , public photoLibrary : PhotoLibrary, public camera : Camera, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -24,32 +27,27 @@ export class CriarPublicacaoPage {
   }
 
 
-  takeGallery(){
-    this.photoLibrary.requestAuthorization().then(() => {
-      this.photoLibrary.getLibrary().subscribe({
-        next: library => {
-          library.forEach(function(libraryItem) {
-            console.log(libraryItem.id);          // ID of the photo
-            console.log(libraryItem.photoURL);    // Cross-platform access to photo
-            console.log(libraryItem.thumbnailURL);// Cross-platform access to thumbnail
-            console.log(libraryItem.fileName);
-            console.log(libraryItem.width);
-            console.log(libraryItem.height);
-            console.log(libraryItem.creationDate);
-            console.log(libraryItem.latitude);
-            console.log(libraryItem.longitude);
-            console.log(libraryItem.albumIds);    // array of ids of appropriate AlbumItem, only of includeAlbumsData was used
-          });
-        },
-        error: err => { console.log('could not get photos'); },
-        complete: () => { console.log('done getting photos'); }
-      });
-    })
-    .catch(err => console.log('permissions weren\'t granted'));
+  enviarPublicacao(){
+      let loading = this.loadingCtrl.create({
+          content: 'Carregando...'
+        });
+
+       loading.present();
+      this.cp.enviar_nova_postagem(this.msgproblema,this.photo).subscribe(res => {
+        loading.dismiss();
+        this.navCtrl.push(ReclamacaoComponent)});
   }
 
+
   takePicture(sourceType:number) {
+    console.log(sourceType);
     this.photo = '';
+    var source = null;
+    if(sourceType == 0){
+        source = this.camera.PictureSourceType.CAMERA; 
+    }else{
+      source = this.camera.PictureSourceType.PHOTOLIBRARY;
+    }
  
     const options: CameraOptions = {
       quality: 100,
@@ -59,7 +57,7 @@ export class CriarPublicacaoPage {
       allowEdit: true,
       targetWidth: 100,
       targetHeight: 100,
-      sourceType:this.camera.PictureSourceType.PHOTOLIBRARY
+      sourceType:source
     }
  
     this.camera.getPicture(options)

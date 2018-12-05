@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http,Headers,RequestOptions } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/Rx';
 
 @Injectable()
 export class DetalhesParadasService {
 	
-	constructor(public _http : Http) {}
+	constructor(public _http : HttpClient) {}
 
 
 
@@ -13,8 +14,8 @@ export class DetalhesParadasService {
 
 
 
-		return this._http.get("http://127.0.0.1:8000/paradas/").
-			map(res => res.json());
+		return this._http.get("http://thebusapi.herokuapp.com/paradas/").
+			map(res => res);
 
 	}
 }

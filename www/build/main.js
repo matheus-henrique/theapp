@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 140:
+/***/ 134:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,7 +9,7 @@ webpackJsonp([1],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__criar_publicacao_criar_publicacao__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reclamacoes_service__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reclamacoes_service__ = __webpack_require__(311);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -25,16 +25,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ReclamacaoComponent = (function () {
-    function ReclamacaoComponent(navCtrl, _reclamacaoservice, camera) {
+    function ReclamacaoComponent(loadingCtrl, navCtrl, _reclamacaoservice, camera) {
+        this.loadingCtrl = loadingCtrl;
         this.navCtrl = navCtrl;
         this._reclamacaoservice = _reclamacaoservice;
         this.camera = camera;
     }
     ReclamacaoComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var loading = this.loadingCtrl.create({
+            content: 'Carregando...'
+        });
+        loading.present();
         this._reclamacaoservice.get_all_reclamacao().
             subscribe(function (res) {
-            console.log(res);
+            loading.dismiss();
             _this.reclamacaosobj = res;
         });
     };
@@ -56,9 +61,9 @@ var ReclamacaoComponent = (function () {
             .then(function (file_uri) { return _this.imageSrc = file_uri; }, function (err) { return console.log(err); });
     };
     ReclamacaoComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\theapp\src\pages\reclamacoes\reclamacoes.html"*/'<ion-header></ion-header>\n\n<ion-content>\n\n    <ion-fab right bottom>\n\n        <button ion-fab (click)="abrirCriarReclamacao()"><ion-icon name="add"></ion-icon></button>\n\n      </ion-fab>\n\n  <ion-card *ngFor="let item of reclamacaosobj;">\n\n    <ion-item>\n\n      <ion-avatar item-start>\n\n        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAMFBMVEX29vKdnZPKysOoqJ/V1c6+vrejo5ng4Nrw8Oyzs6vr6+bExL3a2tSurqW5ubHl5eBEZuBoAAAEKUlEQVR4nO2di5KDIAxFxSfa1v7/324dd7cPbVW44aZMzhdwJwRCCKEoDMMwDMMwDMMwDMMwDMN4puvKcuyrqh/LsuvYowljKJvKvVA15cAe1zGup4WIfzGnK3t0exnKtyp+tXyFXbrms4qZRrvDdP0eGRO9ZinDLmv8W0XtBCvbIzqca0v2iFcZLsdkTFwUGqU+aI5fo9Tscb9yCpExcWKP/Al/yMufaTx79Hd8gHvcuahREqdDkZKIeTXTsBXMBPv5HRUef47X4dyZreK2DwbtH6+0fDcZETqcG9k6IBNrgj25Ns5Q+6m4OmqUDue4URfMIGSTAA3CNQnQIFSTdEgdzvFO8dFB1jO8kAuyqd9pWTpgm+EfrE0RPLN4cws8s2hzC7xmTXDWrRIvhJOx253m3U9PEYLX4RxDx1VCCOMSCBow/sFwEkDyZAkjnSLg6xxvh2+HE4Qt0UvocC59WkhgX59Iv7fDQ9+Z9AGwQIAykX79zUYIKFX6SvrUqcg2wthIshESed32jktyITI6CIG8CTEhJsSEmBATYkJyEiIUa1n0a0KETojpL62yObNnI0Qor5U+QZdNpjGb3K/Q1p5eh8zWnj6JktFFj8j6y7hDFLkMZVTRiay/lBoOCSEMHRLLFmPREijXYhVsZVMdJFCMQnqPnEsFHf6QyHp7AXcS1pNXuJPQnuxDS+OZxfHgki3e2zfwuZ34Ogm6ANNK4wtwlMJ8HwoN5alNIHJ5Y4XcE7kNIAacEHL7B1i8xX7jCnN3er8XkLuTX7gWsKyQgrYiEJPwDQIyiQKDQEyiwSAQk6gwCMAkOgwCMIkSg0SbRItBok2ixiCRJuFkrteJMgk9ynokwiR6PGQiwiSKPOSGD86nMHMnawTnU1R0pHogOFenytWLiNIU9sAXBK5bmjaRmcCKDs5T/E8Eers2Xw9O1enry2pCtGFCtGFCtGFCtJGNkMAQRUmr3weyCRoDw3hdqYci4mDFb/T7TPBRl90e95VMGuBHZOiUOUlEwZOuuRXxBkPVAhxVNqAos+WjrhUqPStwZP2ZmjAllzvEXK6nIbVn/Gjeo74kIHt8h+vkz1yFB+h7hZFVDHjsH7E9UP4aw8ugSDkLtXy4hV4Jg8jNDw/jSPRdoq+F2lY8MtbSq/G5EWkqu6RtBKfYh59AJRD6XVTYMd5oQbuLr8VWqS16oLtcUznGOm2DmWI8Y9zpo+N8z/CMNaoyZob5o9+ZStIGS1ElYyJQSthvprIE/JXaCbVmi+Vy7PzlRf4bwHA6ML9wB1gJ9h+KFZtjZt9VRMjXy6nZ89XzVeFitaTdjFpEOgJJsLEQf42ODSVfpOOjkq/S8UGJyD9Ikrzx+PBCfRZvvhVWcIA6yupFqlBPT1lW7lUwf0inpl1u8SI5aXkWF6nAngdp+TPJDwwXRUtT6q+sAAAAAElFTkSuQmCC">\n\n      </ion-avatar>\n\n      <h2>{{item.user}}</h2>\n\n      <p>{{item.created_at}}</p>\n\n    </ion-item>\n\n  \n\n    <img src="http://localhost:8000{{item.img}}">\n\n  \n\n    <ion-card-content>\n\n      <p>{{item.texto}}</p>\n\n    </ion-card-content>\n\n  \n\n    <ion-row>\n\n      <ion-col>\n\n        <button ion-button icon-start clear small>\n\n          <ion-icon name="thumbs-up"></ion-icon>\n\n          <div>{{item.like}} Curtiram</div>\n\n        </button>\n\n      </ion-col>\n\n      <ion-col>\n\n        <button ion-button icon-start clear small>\n\n          <ion-icon name="text"></ion-icon>\n\n          <div>0 Comentarios</div>\n\n        </button>\n\n      </ion-col>\n\n      <ion-col center text-center>\n\n        <ion-note>\n\n          11h ago\n\n        </ion-note>\n\n      </ion-col>\n\n    </ion-row>\n\n  \n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\theapp\src\pages\reclamacoes\reclamacoes.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\reclamacoes\reclamacoes.html"*/'<ion-header></ion-header>\n\n<ion-content>\n\n    <ion-fab right bottom>\n\n        <button ion-fab (click)="abrirCriarReclamacao()"><ion-icon name="add"></ion-icon></button>\n\n      </ion-fab>\n\n  <ion-card *ngFor="let item of reclamacaosobj;">\n\n    <ion-item>\n\n      <ion-avatar item-start>\n\n        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAMFBMVEX29vKdnZPKysOoqJ/V1c6+vrejo5ng4Nrw8Oyzs6vr6+bExL3a2tSurqW5ubHl5eBEZuBoAAAEKUlEQVR4nO2di5KDIAxFxSfa1v7/324dd7cPbVW44aZMzhdwJwRCCKEoDMMwDMMwDMMwDMMwDMN4puvKcuyrqh/LsuvYowljKJvKvVA15cAe1zGup4WIfzGnK3t0exnKtyp+tXyFXbrms4qZRrvDdP0eGRO9ZinDLmv8W0XtBCvbIzqca0v2iFcZLsdkTFwUGqU+aI5fo9Tscb9yCpExcWKP/Al/yMufaTx79Hd8gHvcuahREqdDkZKIeTXTsBXMBPv5HRUef47X4dyZreK2DwbtH6+0fDcZETqcG9k6IBNrgj25Ns5Q+6m4OmqUDue4URfMIGSTAA3CNQnQIFSTdEgdzvFO8dFB1jO8kAuyqd9pWTpgm+EfrE0RPLN4cws8s2hzC7xmTXDWrRIvhJOx253m3U9PEYLX4RxDx1VCCOMSCBow/sFwEkDyZAkjnSLg6xxvh2+HE4Qt0UvocC59WkhgX59Iv7fDQ9+Z9AGwQIAykX79zUYIKFX6SvrUqcg2wthIshESed32jktyITI6CIG8CTEhJsSEmBATYkJyEiIUa1n0a0KETojpL62yObNnI0Qor5U+QZdNpjGb3K/Q1p5eh8zWnj6JktFFj8j6y7hDFLkMZVTRiay/lBoOCSEMHRLLFmPREijXYhVsZVMdJFCMQnqPnEsFHf6QyHp7AXcS1pNXuJPQnuxDS+OZxfHgki3e2zfwuZ34Ogm6ANNK4wtwlMJ8HwoN5alNIHJ5Y4XcE7kNIAacEHL7B1i8xX7jCnN3er8XkLuTX7gWsKyQgrYiEJPwDQIyiQKDQEyiwSAQk6gwCMAkOgwCMIkSg0SbRItBok2ixiCRJuFkrteJMgk9ynokwiR6PGQiwiSKPOSGD86nMHMnawTnU1R0pHogOFenytWLiNIU9sAXBK5bmjaRmcCKDs5T/E8Eers2Xw9O1enry2pCtGFCtGFCtGFCtJGNkMAQRUmr3weyCRoDw3hdqYci4mDFb/T7TPBRl90e95VMGuBHZOiUOUlEwZOuuRXxBkPVAhxVNqAos+WjrhUqPStwZP2ZmjAllzvEXK6nIbVn/Gjeo74kIHt8h+vkz1yFB+h7hZFVDHjsH7E9UP4aw8ugSDkLtXy4hV4Jg8jNDw/jSPRdoq+F2lY8MtbSq/G5EWkqu6RtBKfYh59AJRD6XVTYMd5oQbuLr8VWqS16oLtcUznGOm2DmWI8Y9zpo+N8z/CMNaoyZob5o9+ZStIGS1ElYyJQSthvprIE/JXaCbVmi+Vy7PzlRf4bwHA6ML9wB1gJ9h+KFZtjZt9VRMjXy6nZ89XzVeFitaTdjFpEOgJJsLEQf42ODSVfpOOjkq/S8UGJyD9Ikrzx+PBCfRZvvhVWcIA6yupFqlBPT1lW7lUwf0inpl1u8SI5aXkWF6nAngdp+TPJDwwXRUtT6q+sAAAAAElFTkSuQmCC">\n\n      </ion-avatar>\n\n      <h2>{{item.user}}</h2>\n\n      <p>{{item.created_at}}</p>\n\n    </ion-item>\n\n  \n\n    <img src="http://localhost:8000{{item.img}}">\n\n  \n\n    <ion-card-content>\n\n      <p>{{item.texto}}</p>\n\n    </ion-card-content>\n\n  \n\n    <ion-row>\n\n      <ion-col>\n\n        <button ion-button icon-start clear small>\n\n          <ion-icon name="thumbs-up"></ion-icon>\n\n          <div>{{item.like}} Curtiram</div>\n\n        </button>\n\n      </ion-col>\n\n      <ion-col>\n\n        <button ion-button icon-start clear small>\n\n          <ion-icon name="text"></ion-icon>\n\n          <div>0 Comentarios</div>\n\n        </button>\n\n      </ion-col>\n\n      <ion-col center text-center>\n\n        <ion-note>\n\n          11h ago\n\n        </ion-note>\n\n      </ion-col>\n\n    </ion-row>\n\n  \n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\reclamacoes\reclamacoes.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__reclamacoes_service__["a" /* ReclamacaoService */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__reclamacoes_service__["a" /* ReclamacaoService */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */]])
     ], ReclamacaoComponent);
     return ReclamacaoComponent;
 }());
@@ -76,6 +81,8 @@ var ReclamacaoComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_library__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__criar_publicacao_service__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reclamacoes_reclamacoes_component__ = __webpack_require__(134);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -89,6 +96,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
  * Generated class for the CriarPublicacaoPage page.
  *
@@ -96,7 +105,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var CriarPublicacaoPage = (function () {
-    function CriarPublicacaoPage(photoLibrary, camera, navCtrl, navParams) {
+    function CriarPublicacaoPage(loadingCtrl, cp, photoLibrary, camera, navCtrl, navParams) {
+        this.loadingCtrl = loadingCtrl;
+        this.cp = cp;
         this.photoLibrary = photoLibrary;
         this.camera = camera;
         this.navCtrl = navCtrl;
@@ -106,33 +117,28 @@ var CriarPublicacaoPage = (function () {
     CriarPublicacaoPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad CriarPublicacaoPage');
     };
-    CriarPublicacaoPage.prototype.takeGallery = function () {
+    CriarPublicacaoPage.prototype.enviarPublicacao = function () {
         var _this = this;
-        this.photoLibrary.requestAuthorization().then(function () {
-            _this.photoLibrary.getLibrary().subscribe({
-                next: function (library) {
-                    library.forEach(function (libraryItem) {
-                        console.log(libraryItem.id); // ID of the photo
-                        console.log(libraryItem.photoURL); // Cross-platform access to photo
-                        console.log(libraryItem.thumbnailURL); // Cross-platform access to thumbnail
-                        console.log(libraryItem.fileName);
-                        console.log(libraryItem.width);
-                        console.log(libraryItem.height);
-                        console.log(libraryItem.creationDate);
-                        console.log(libraryItem.latitude);
-                        console.log(libraryItem.longitude);
-                        console.log(libraryItem.albumIds); // array of ids of appropriate AlbumItem, only of includeAlbumsData was used
-                    });
-                },
-                error: function (err) { console.log('could not get photos'); },
-                complete: function () { console.log('done getting photos'); }
-            });
-        })
-            .catch(function (err) { return console.log('permissions weren\'t granted'); });
+        var loading = this.loadingCtrl.create({
+            content: 'Carregando...'
+        });
+        loading.present();
+        this.cp.enviar_nova_postagem(this.msgproblema, this.photo).subscribe(function (res) {
+            loading.dismiss();
+            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__reclamacoes_reclamacoes_component__["a" /* ReclamacaoComponent */]);
+        });
     };
     CriarPublicacaoPage.prototype.takePicture = function (sourceType) {
         var _this = this;
+        console.log(sourceType);
         this.photo = '';
+        var source = null;
+        if (sourceType == 0) {
+            source = this.camera.PictureSourceType.CAMERA;
+        }
+        else {
+            source = this.camera.PictureSourceType.PHOTOLIBRARY;
+        }
         var options = {
             quality: 100,
             destinationType: this.camera.DestinationType.DATA_URL,
@@ -141,7 +147,7 @@ var CriarPublicacaoPage = (function () {
             allowEdit: true,
             targetWidth: 100,
             targetHeight: 100,
-            sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+            sourceType: source
         };
         this.camera.getPicture(options)
             .then(function (imageData) {
@@ -156,9 +162,9 @@ var CriarPublicacaoPage = (function () {
     };
     CriarPublicacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-criar-publicacao',template:/*ion-inline-start:"C:\theapp\src\pages\criar-publicacao\criar-publicacao.html"*/'<!--\n  Generated template for the CriarPublicacaoPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Criar Publicação</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <ion-list>\n        <ion-item>\n            <ion-buttons center>\n                <button ion-button larger (click)="takeGallery()">\n                  <ion-icon name="images"></ion-icon>\n                </button>\n              </ion-buttons> <ion-buttons center>\n                  <button ion-button larger (click)="takePicture()">\n                    <ion-icon name="camera"></ion-icon>\n                  </button>\n                </ion-buttons>\n        </ion-item>\n        <ion-item>\n          <img src="{{photo}}">\n        </ion-item>\n       \n\n        <ion-item>\n            <ion-textarea placeholder="Problemas ? Conte para gente"></ion-textarea>\n          </ion-item>\n      \n\n          <button ion-button full>Enviar</button>\n      </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\theapp\src\pages\criar-publicacao\criar-publicacao.html"*/,
+            selector: 'page-criar-publicacao',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\criar-publicacao\criar-publicacao.html"*/'<!--\n\n  Generated template for the CriarPublicacaoPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Criar Publicação</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <ion-list>\n\n        <ion-item>\n\n            <ion-buttons center>\n\n                <button ion-button larger (click)="takePicture(1)">\n\n                  <ion-icon name="images"></ion-icon>\n\n                </button>\n\n              </ion-buttons> <ion-buttons center>\n\n                  <button ion-button larger (click)="takePicture(0)">\n\n                    <ion-icon name="camera"></ion-icon>\n\n                  </button>\n\n                </ion-buttons>\n\n        </ion-item>\n\n        <ion-item>\n\n          <img src="{{photo}}">\n\n        </ion-item>\n\n       \n\n\n\n        <ion-item>\n\n            <ion-textarea [(ngModel)]="msgproblema" placeholder="Problemas ? Conte para gente"></ion-textarea>\n\n          </ion-item>\n\n      \n\n\n\n          <button ion-button full (click)="enviarPublicacao()">Enviar</button>\n\n      </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\criar-publicacao\criar-publicacao.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_library__["a" /* PhotoLibrary */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__criar_publicacao_service__["a" /* CriarPublicacaoService */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_photo_library__["a" /* PhotoLibrary */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
     ], CriarPublicacaoPage);
     return CriarPublicacaoPage;
 }());
@@ -189,7 +195,7 @@ webpackEmptyAsyncContext.id = 169;
 
 var map = {
 	"../pages/criar-publicacao/criar-publicacao.module": [
-		697,
+		698,
 		0
 	]
 };
@@ -209,14 +215,61 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 259:
+/***/ 218:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CriarPublicacaoService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CriarPublicacaoService = (function () {
+    function CriarPublicacaoService(_http) {
+        this._http = _http;
+    }
+    CriarPublicacaoService.prototype.enviar_nova_postagem = function (msg, foto) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('texto', msg);
+        headers.append('img', foto);
+        console.log(foto);
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
+        return this._http.post("http://thebusapi.herokuapp.com/reclamacoes/", { 'texto': msg, 'img': foto }).
+            map(function (res) { return res; });
+    };
+    CriarPublicacaoService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
+    ], CriarPublicacaoService);
+    return CriarPublicacaoService;
+}());
+
+//# sourceMappingURL=criar-publicacao.service.js.map
+
+/***/ }),
+
+/***/ 311:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReclamacaoService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -235,7 +288,7 @@ var ReclamacaoService = (function () {
         this._http = _http;
     }
     ReclamacaoService.prototype.get_all_reclamacao = function () {
-        return this._http.get("http://localhost:8000/reclamacoes/")
+        return this._http.get("http://thebusapi.herokuapp.com/reclamacoes/")
             .map(function (res) { return res; });
     };
     ReclamacaoService = __decorate([
@@ -249,19 +302,61 @@ var ReclamacaoService = (function () {
 
 /***/ }),
 
-/***/ 352:
+/***/ 353:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__temporeal_temporeal__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paradas_paradas__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__linhas_linhas__ = __webpack_require__(366);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var TabsPage = (function () {
+    function TabsPage() {
+        // this tells the tabs component which Pages
+        // should be each tab's root Page
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__temporeal_temporeal__["a" /* TempoReal */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__paradas_paradas__["a" /* Paradas */];
+        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__linhas_linhas__["a" /* Linhas */];
+    }
+    TabsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\tabs\tabs.html"*/'<ion-tabs color="appcolor">\n\n  <ion-tab [root]="tab1Root" tabTitle="Tempo Real" tabIcon="map" tabBadge="3" tabBadgeStyle="danger"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Paradas" tabIcon="bus"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Linhas" tabIcon="information"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\tabs\tabs.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], TabsPage);
+    return TabsPage;
+}());
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 354:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TempoReal; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__temporeal_service__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configuracoes_configuracoes_component__ = __webpack_require__(354);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reclamacoes_reclamacoes_component__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__detalhes_onibus_detalhes_onibus_component__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__favoritos_favoritos_component__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__temporeal_service__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__configuracoes_configuracoes_component__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__reclamacoes_reclamacoes_component__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__detalhes_onibus_detalhes_onibus_component__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__favoritos_favoritos_component__ = __webpack_require__(361);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -645,7 +740,7 @@ var TempoReal = (function () {
     ], TempoReal.prototype, "mapElement", void 0);
     TempoReal = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\theapp\src\pages\temporeal\temporeal.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n   <button [hidden] = "!mostrar_pesquisa" ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n    <ion-title [hidden] = "!mostrar_pesquisa" style="text-align: center;">Tempo Real</ion-title>\n\n    <ion-searchbar [hidden] = mostrar_pesquisa\n\n      placeholder="Digite o numero da linha"\n\n      [showCancelButton]="shouldShowCancel"\n\n      (ionInput)="veiculoEspecifico($event)"\n\n      (ionCancel)="onCancel($event)">\n\n    </ion-searchbar>\n\n     <ion-buttons end>\n\n      <button [hidden] = "!mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = false">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n   <ion-buttons end>\n\n      <button [hidden] = "mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = true">\n\n        <ion-icon name="close"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n  </ion-navbar>\n\n    <ion-toolbar no-border-top>\n\n    <ion-segment [(ngModel)]="menu">\n\n      <ion-segment-button value="detalhes">\n\n        Detalhes\n\n      </ion-segment-button>\n\n      <ion-segment-button value="mapa" (click)="menumudar()">\n\n        Mapa\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-menu [content]="content">\n\n  <ion-header >\n\n    <ion-toolbar color="appcolor">\n\n      <ion-title>Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content >\n\n    <ion-list>\n\n      <button ion-item (click)="abrirConfiguracoes()">\n\n       Configurações <ion-icon name="construct" color="appcolor"></ion-icon>\n\n      </button>\n\n       <button  ion-item (click)="abrirFavoritos()">\n\n        Favoritos ({{favoritos.length}}) <ion-icon name="star" color="appcolor"></ion-icon>\n\n      </button>\n\n      <button  ion-item (click)="abrirReclamacao()">\n\n        Reclamações <ion-icon name="alert" color="appcolor"></ion-icon>\n\n      </button>\n\n      <button  ion-item (click)="openPage(signupPage)">\n\n        Sobre <ion-icon name="alert" color="appcolor"></ion-icon>\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" #content [root]="rootPage"></ion-nav>\n\n\n\n<ion-content>\n\n <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="menu == \'detalhes\'">\n\n    <ion-refresher-content\n\n       pullingIcon="arrow-dropdown"\n\n       pullingText="Atualizar"\n\n       refreshingSpinner="circles"\n\n       refreshingText="Atualizando...">\n\n    </ion-refresher-content>\n\n </ion-refresher> \n\n <div #map id="map" [hidden]="menu == \'detalhes\'">\n\n     \n\n </div>\n\n\n\n<div *ngIf="menu == \'detalhes\'">\n\n   <ion-list>\n\n    <div *ngFor="let item of _veiculos">\n\n     <ion-list-header color="appcolor">\n\n     {{item.CodigoLinha}} - {{item.Denomicao}} \n\n      <button ion-button icon-center [disabled]="item.favorito" (click)="adicionarFavoritos(item.CodigoLinha, item); item.favorito = true" color="dark" clear >\n\n   <ion-icon name="star" [class.selecionado]="item.favorito"></ion-icon>\n\n</button>\n\n    </ion-list-header>\n\n        <ion-item *ngFor="let item2 of item.Veiculos" (click)="mostrarDetalhesOnibus(item2,item)">\n\n          <ion-icon name=\'bus\' item-left [style.color]="{Leste:\'rgb(236,27,36)\',Norte:\'rgb(34,177,75)\',Sul:\'#FFD500\',Sudeste:\'rgb(0,128,254)\',Terminal:\'rgb(0,128,254)\'}[item.Zona]"></ion-icon>\n\n             Codigo do veiculo : {{item2.CodigoVeiculo}}\n\n           <p>\n\n              Visto por ultimo {{item2.texto}}  <ion-icon style="font-size: 15px" name="clock"></ion-icon>\n\n            </p>\n\n            <ion-note item-right *ngIf="item2.Cadeirante"><img width="25px" src="/assets/icon/adpt.png"></ion-note>\n\n            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona != \'Outros\'"><img width="25px" src="/assets/icon/noadpt.png"></ion-note>\n\n            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona == \'Outros\'"><img width="25px" src="https://image.freepik.com/icones-gratis/ponto-de-interrogacao-dentro-de-um-contorno-de-caixa_318-51427.jpg"></ion-note>\n\n            \n\n        </ion-item>\n\n    </div>\n\n    </ion-list>\n\n</div>\n\n <ion-fab right top (click)="atualizar()" *ngIf="menu == \'mapa\'">\n\n      <button ion-fab secondary class="fab-map" color="appcolor">\n\n        <ion-icon name=\'refresh\'></ion-icon>\n\n      </button>\n\n  </ion-fab>\n\n  <ion-fab right bottom *ngIf="menu == \'mapa\'">\n\n    <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>\n\n    <ion-fab-list side="left">\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Sudeste\')" ion-fab><ion-icon style="color : blue "[name]="icon_zonas[0]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Leste\')" ion-fab><ion-icon style="color : red "[name]="icon_zonas[1]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Norte\')" ion-fab><ion-icon style="color : green "[name]="icon_zonas[2]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Sul\')" ion-fab><ion-icon style="color : yellow "[name]="icon_zonas[3]" ></ion-icon></button>\n\n      <button  [hidden]="icon_zonas[0] == \'undo\' || icon_zonas[1] == \'undo\' || icon_zonas[2] == \'undo\' || icon_zonas[3] == \'undo\'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>\n\n    </ion-fab-list>\n\n  </ion-fab>\n\n\n\n\n\n \n\n</ion-content>\n\n'/*ion-inline-end:"C:\theapp\src\pages\temporeal\temporeal.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\temporeal\temporeal.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n   <button [hidden] = "!mostrar_pesquisa" ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n    <ion-title [hidden] = "!mostrar_pesquisa" style="text-align: center;">Tempo Real</ion-title>\n\n    <ion-searchbar [hidden] = mostrar_pesquisa\n\n      placeholder="Digite o numero da linha"\n\n      [showCancelButton]="shouldShowCancel"\n\n      (ionInput)="veiculoEspecifico($event)"\n\n      (ionCancel)="onCancel($event)">\n\n    </ion-searchbar>\n\n     <ion-buttons end>\n\n      <button [hidden] = "!mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = false">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n   <ion-buttons end>\n\n      <button [hidden] = "mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = true">\n\n        <ion-icon name="close"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n  </ion-navbar>\n\n    <ion-toolbar no-border-top>\n\n    <ion-segment [(ngModel)]="menu">\n\n      <ion-segment-button value="detalhes">\n\n        Detalhes\n\n      </ion-segment-button>\n\n      <ion-segment-button value="mapa" (click)="menumudar()">\n\n        Mapa\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-menu [content]="content">\n\n  <ion-header >\n\n    <ion-toolbar color="appcolor">\n\n      <ion-title>Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n  <ion-content >\n\n    <ion-list>\n\n      <button ion-item (click)="abrirConfiguracoes()">\n\n       Configurações <ion-icon name="construct" color="appcolor"></ion-icon>\n\n      </button>\n\n       <button  ion-item (click)="abrirFavoritos()">\n\n        Favoritos ({{favoritos.length}}) <ion-icon name="star" color="appcolor"></ion-icon>\n\n      </button>\n\n      <button  ion-item (click)="abrirReclamacao()">\n\n        Reclamações <ion-icon name="alert" color="appcolor"></ion-icon>\n\n      </button>\n\n      <button  ion-item (click)="openPage(signupPage)">\n\n        Sobre <ion-icon name="alert" color="appcolor"></ion-icon>\n\n      </button>\n\n    </ion-list>\n\n  </ion-content>\n\n</ion-menu>\n\n\n\n<ion-nav id="nav" #content [root]="rootPage"></ion-nav>\n\n\n\n<ion-content>\n\n <ion-refresher (ionRefresh)="doRefresh($event)" *ngIf="menu == \'detalhes\'">\n\n    <ion-refresher-content\n\n       pullingIcon="arrow-dropdown"\n\n       pullingText="Atualizar"\n\n       refreshingSpinner="circles"\n\n       refreshingText="Atualizando...">\n\n    </ion-refresher-content>\n\n </ion-refresher> \n\n <div #map id="map" [hidden]="menu == \'detalhes\'">\n\n     \n\n </div>\n\n\n\n<div *ngIf="menu == \'detalhes\'">\n\n   <ion-list>\n\n    <div *ngFor="let item of _veiculos">\n\n     <ion-list-header color="appcolor">\n\n     {{item.CodigoLinha}} - {{item.Denomicao}} \n\n      <button ion-button icon-center [disabled]="item.favorito" (click)="adicionarFavoritos(item.CodigoLinha, item); item.favorito = true" color="dark" clear >\n\n   <ion-icon name="star" [class.selecionado]="item.favorito"></ion-icon>\n\n</button>\n\n    </ion-list-header>\n\n        <ion-item *ngFor="let item2 of item.Veiculos" (click)="mostrarDetalhesOnibus(item2,item)">\n\n          <ion-icon name=\'bus\' item-left [style.color]="{Leste:\'rgb(236,27,36)\',Norte:\'rgb(34,177,75)\',Sul:\'#FFD500\',Sudeste:\'rgb(0,128,254)\',Terminal:\'rgb(0,128,254)\'}[item.Zona]"></ion-icon>\n\n             Codigo do veiculo : {{item2.CodigoVeiculo}}\n\n           <p>\n\n              Visto por ultimo {{item2.texto}}  <ion-icon style="font-size: 15px" name="clock"></ion-icon>\n\n            </p>\n\n            <ion-note item-right *ngIf="item2.Cadeirante"><img width="25px" src="/assets/icon/adpt.png"></ion-note>\n\n            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona != \'Outros\'"><img width="25px" src="/assets/icon/noadpt.png"></ion-note>\n\n            <ion-note item-right *ngIf="!item2.Cadeirante && item.Zona == \'Outros\'"><img width="25px" src="https://image.freepik.com/icones-gratis/ponto-de-interrogacao-dentro-de-um-contorno-de-caixa_318-51427.jpg"></ion-note>\n\n            \n\n        </ion-item>\n\n    </div>\n\n    </ion-list>\n\n</div>\n\n <ion-fab right top (click)="atualizar()" *ngIf="menu == \'mapa\'">\n\n      <button ion-fab secondary class="fab-map" color="appcolor">\n\n        <ion-icon name=\'refresh\'></ion-icon>\n\n      </button>\n\n  </ion-fab>\n\n  <ion-fab right bottom *ngIf="menu == \'mapa\'">\n\n    <button ion-fab><ion-icon name="arrow-dropleft"></ion-icon></button>\n\n    <ion-fab-list side="left">\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Sudeste\')" ion-fab><ion-icon style="color : blue "[name]="icon_zonas[0]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Leste\')" ion-fab><ion-icon style="color : red "[name]="icon_zonas[1]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Norte\')" ion-fab><ion-icon style="color : green "[name]="icon_zonas[2]"></ion-icon></button>\n\n      <button  [hidden]="icon != \'search\'" (click)="sumirOnibus(\'Sul\')" ion-fab><ion-icon style="color : yellow "[name]="icon_zonas[3]" ></ion-icon></button>\n\n      <button  [hidden]="icon_zonas[0] == \'undo\' || icon_zonas[1] == \'undo\' || icon_zonas[2] == \'undo\' || icon_zonas[3] == \'undo\'"(click)="mostrar_onibus_especifico()" ion-fab><ion-icon [name]="icon"></ion-icon></button>\n\n    </ion-fab-list>\n\n  </ion-fab>\n\n\n\n\n\n \n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\temporeal\temporeal.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__temporeal_service__["a" /* TempoRealService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]])
     ], TempoReal);
@@ -656,14 +751,14 @@ var TempoReal = (function () {
 
 /***/ }),
 
-/***/ 353:
+/***/ 355:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TempoRealService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -683,20 +778,20 @@ var TempoRealService = (function () {
     }
     TempoRealService.prototype.todos_veiculos_tempo_real = function () {
         return this._http.get("https://thebusapi.herokuapp.com/linhas/")
-            .map(function (res) { return res.json(); });
+            .map(function (res) { return res; });
     };
     TempoRealService.prototype.veiculo_especifico_tempo_real = function (valor) {
         return this._http.get("http://thebusapi.herokuapp.com/linhas/" + valor + "/")
             .take(10)
-            .map(function (res) { return res.json(); });
+            .map(function (res) { return res; });
     };
     TempoRealService.prototype.distancia_onibus_usuario = function (latitude, longitude) {
         return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + latitude + "," + longitude + "&destinations=-5.0823736,-42.799119&mode=bicycling&language=pt-BR&key=AIzaSyChAXtrYJ9zWrk5hdERf9yeIGLLScpoqec").
-            map(function (res) { return res.json(); });
+            map(function (res) { return res; });
     };
     TempoRealService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], TempoRealService);
     return TempoRealService;
 }());
@@ -705,14 +800,14 @@ var TempoRealService = (function () {
 
 /***/ }),
 
-/***/ 354:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfiguracoesComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -749,7 +844,7 @@ var ConfiguracoesComponent = (function () {
         console.log(this.opc_mapa);
     };
     ConfiguracoesComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\theapp\src\pages\configuracoes\configuracoes.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      <ion-icon name="settings" item-left ></ion-icon>\n\n      Configurações\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<ion-list>\n\n	<ion-list-header color="appcolor">\n\n		<ion-icon name=\'construct\' item-left></ion-icon>	\n\n			Geral\n\n	</ion-list-header>\n\n\n\n 	 <ion-item>\n\n 		<ion-icon name=\'locate\' item-left></ion-icon>\n\n	    <ion-label>Localização</ion-label>\n\n	    <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>\n\n  	</ion-item>\n\n </ion-list>\n\n\n\n<ion-list radio-group [(ngModel)]="opc_mapa">\n\n	<ion-list-header color="appcolor">\n\n	 <ion-icon name=\'brush\' item-left></ion-icon>\n\n		Tipo do Mapa\n\n	</ion-list-header>\n\n	<ion-item>\n\n		 <ion-label>Roadmap</ion-label>\n\n		<ion-radio value="ROADMAP" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	 <ion-note padding>\n\n  			Exibe o mapa de vias padrão. Esse é o tipo de mapa padrão.\n\n  	</ion-note>\n\n  	<ion-item>\n\n		 <ion-label>Hybrid</ion-label>\n\n		 <ion-radio value="HYBRID" (click)="notify()"></ion-radio>\n\n		 \n\n  	</ion-item>\n\n  	<ion-note padding>\n\n  			Exibe uma combinação de visualizações normais e de satélite\n\n  	</ion-note>\n\n	 <ion-item>\n\n		 <ion-label>Satellite</ion-label>\n\n		 <ion-radio value="SATELLITE" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	<ion-note padding>\n\n				Exibe imagens de satélite do Google Earth\n\n	</ion-note>\n\n  	<ion-item>\n\n		 <ion-label>Terrain</ion-label>\n\n		 <ion-radio value="TERRAIN" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	 <ion-note padding>\n\n  			Exibe um mapa físico baseado em informações do terreno. \n\n  	</ion-note>\n\n\n\n</ion-list>\n\n\n\n<ion-list>\n\n\n\n	<ion-list-header color="appcolor">\n\n	 <ion-icon name=\'map\' item-left></ion-icon>\n\n		Zoom\n\n	</ion-list-header>\n\n   <ion-item>\n\n	   <ion-range min="8" max="25" step="1" [(ngModel)]="zoom">\n\n	     <ion-icon small range-left name="search"></ion-icon>\n\n	     <ion-icon range-right name="search"></ion-icon>\n\n	   </ion-range>\n\n	</ion-item>\n\n\n\n  	 \n\n</ion-list>\n\n<ion-note padding></ion-note>\n\n<button color="appcolor" ion-button full icon-left>\n\n        <ion-icon name="eye"></ion-icon>\n\n          Previsualizar\n\n</button>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\theapp\src\pages\configuracoes\configuracoes.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\configuracoes\configuracoes.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      <ion-icon name="settings" item-left ></ion-icon>\n\n      Configurações\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n<ion-list>\n\n	<ion-list-header color="appcolor">\n\n		<ion-icon name=\'construct\' item-left></ion-icon>	\n\n			Geral\n\n	</ion-list-header>\n\n\n\n 	 <ion-item>\n\n 		<ion-icon name=\'locate\' item-left></ion-icon>\n\n	    <ion-label>Localização</ion-label>\n\n	    <ion-toggle checked="true" [(ngModel)]="pepperoni"></ion-toggle>\n\n  	</ion-item>\n\n </ion-list>\n\n\n\n<ion-list radio-group [(ngModel)]="opc_mapa">\n\n	<ion-list-header color="appcolor">\n\n	 <ion-icon name=\'brush\' item-left></ion-icon>\n\n		Tipo do Mapa\n\n	</ion-list-header>\n\n	<ion-item>\n\n		 <ion-label>Roadmap</ion-label>\n\n		<ion-radio value="ROADMAP" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	 <ion-note padding>\n\n  			Exibe o mapa de vias padrão. Esse é o tipo de mapa padrão.\n\n  	</ion-note>\n\n  	<ion-item>\n\n		 <ion-label>Hybrid</ion-label>\n\n		 <ion-radio value="HYBRID" (click)="notify()"></ion-radio>\n\n		 \n\n  	</ion-item>\n\n  	<ion-note padding>\n\n  			Exibe uma combinação de visualizações normais e de satélite\n\n  	</ion-note>\n\n	 <ion-item>\n\n		 <ion-label>Satellite</ion-label>\n\n		 <ion-radio value="SATELLITE" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	<ion-note padding>\n\n				Exibe imagens de satélite do Google Earth\n\n	</ion-note>\n\n  	<ion-item>\n\n		 <ion-label>Terrain</ion-label>\n\n		 <ion-radio value="TERRAIN" (click)="notify()"></ion-radio>\n\n  	</ion-item>\n\n  	 <ion-note padding>\n\n  			Exibe um mapa físico baseado em informações do terreno. \n\n  	</ion-note>\n\n\n\n</ion-list>\n\n\n\n<ion-list>\n\n\n\n	<ion-list-header color="appcolor">\n\n	 <ion-icon name=\'map\' item-left></ion-icon>\n\n		Zoom\n\n	</ion-list-header>\n\n   <ion-item>\n\n	   <ion-range min="8" max="25" step="1" [(ngModel)]="zoom">\n\n	     <ion-icon small range-left name="search"></ion-icon>\n\n	     <ion-icon range-right name="search"></ion-icon>\n\n	   </ion-range>\n\n	</ion-item>\n\n\n\n  	 \n\n</ion-list>\n\n<ion-note padding></ion-note>\n\n<button color="appcolor" ion-button full icon-left>\n\n        <ion-icon name="eye"></ion-icon>\n\n          Previsualizar\n\n</button>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\configuracoes\configuracoes.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */]])
     ], ConfiguracoesComponent);
@@ -760,17 +855,17 @@ var ConfiguracoesComponent = (function () {
 
 /***/ }),
 
-/***/ 355:
+/***/ 357:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetalhesOnibusComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detalhes_onibus_service__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rota_rota_component__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detalhes_onibus_service__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rota_rota_component__ = __webpack_require__(359);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -916,7 +1011,7 @@ var DetalhesOnibusComponent = (function () {
     ], DetalhesOnibusComponent.prototype, "mapElement", void 0);
     DetalhesOnibusComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'detalhes_onibus',template:/*ion-inline-start:"C:\theapp\src\pages\detalhes_onibus\detalhes_onibus.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      Veiculo : {{dados.CodigoVeiculo}}\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-card>\n\n    <div #map id="map" style="width: 100%; height: 300px;"></div>\n\n  <ion-fab right top>\n\n    <button ion-fab>\n\n      <ion-icon name="pin"></ion-icon>\n\n    </button>\n\n  </ion-fab>\n\n\n\n  <ion-item>\n\n    <ion-icon name="locate" item-left large></ion-icon>\n\n    <h2>Localização</h2>\n\n    <p>{{endereco_atual_onibus?.Endereco}}</p>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-icon name="clock" item-left large ></ion-icon>\n\n    <h2>Ultima vez que foi visto</h2>\n\n    <p>{{dados.Hora}}.</p>\n\n  </ion-item>\n\n   <ion-item>\n\n  <ion-icon name="image" item-left large></ion-icon>\n\n      <button ion-button color="appcolor" (click)="mostraFotoVeiculo()">Ver foto do veículo</button>\n\n  </ion-item>\n\n\n\n   <ion-item *ngIf="dados.Cadeirante">\n\n    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/adpt.png"></ion-icon>\n\n    <h2>Este veículo é adaptado.</h2>\n\n  </ion-item>\n\n  <ion-item *ngIf="!dados.Cadeirante">\n\n    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/noadpt.png"></ion-icon>\n\n    <h2>Este veículo não é adptado.</h2>\n\n  </ion-item>\n\n \n\n  <ion-item>\n\n    <span item-left>{{distancia?.rows[0].elements[0].duration.text}}</span>\n\n    <span item-left>({{distancia?.rows[0].elements[0].distance.text}})</span>\n\n    <button ion-button icon-left clear item-right (click)="detalhes_rota()">\n\n      <ion-icon name="navigate"></ion-icon>\n\n      Rota\n\n    </button>\n\n  </ion-item>\n\n\n\n</ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\theapp\src\pages\detalhes_onibus\detalhes_onibus.component.html"*/
+            selector: 'detalhes_onibus',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\detalhes_onibus\detalhes_onibus.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      Veiculo : {{dados.CodigoVeiculo}}\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <ion-card>\n\n    <div #map id="map" style="width: 100%; height: 300px;"></div>\n\n  <ion-fab right top>\n\n    <button ion-fab>\n\n      <ion-icon name="pin"></ion-icon>\n\n    </button>\n\n  </ion-fab>\n\n\n\n  <ion-item>\n\n    <ion-icon name="locate" item-left large></ion-icon>\n\n    <h2>Localização</h2>\n\n    <p>{{endereco_atual_onibus?.Endereco}}</p>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-icon name="clock" item-left large ></ion-icon>\n\n    <h2>Ultima vez que foi visto</h2>\n\n    <p>{{dados.Hora}}.</p>\n\n  </ion-item>\n\n   <ion-item>\n\n  <ion-icon name="image" item-left large></ion-icon>\n\n      <button ion-button color="appcolor" (click)="mostraFotoVeiculo()">Ver foto do veículo</button>\n\n  </ion-item>\n\n\n\n   <ion-item *ngIf="dados.Cadeirante">\n\n    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/adpt.png"></ion-icon>\n\n    <h2>Este veículo é adaptado.</h2>\n\n  </ion-item>\n\n  <ion-item *ngIf="!dados.Cadeirante">\n\n    <ion-icon item-left large ><img style="width: 25px ! important" src="/assets/icon/noadpt.png"></ion-icon>\n\n    <h2>Este veículo não é adptado.</h2>\n\n  </ion-item>\n\n \n\n  <ion-item>\n\n    <span item-left>{{distancia?.rows[0].elements[0].duration.text}}</span>\n\n    <span item-left>({{distancia?.rows[0].elements[0].distance.text}})</span>\n\n    <button ion-button icon-left clear item-right (click)="detalhes_rota()">\n\n      <ion-icon name="navigate"></ion-icon>\n\n      Rota\n\n    </button>\n\n  </ion-item>\n\n\n\n</ion-card>\n\n</ion-content>'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\detalhes_onibus\detalhes_onibus.component.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__detalhes_onibus_service__["a" /* DetalhesOnibusService */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]])
     ], DetalhesOnibusComponent);
@@ -927,14 +1022,14 @@ var DetalhesOnibusComponent = (function () {
 
 /***/ }),
 
-/***/ 356:
+/***/ 358:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetalhesOnibusService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -953,24 +1048,23 @@ var DetalhesOnibusService = (function () {
         this._http = _http;
     }
     DetalhesOnibusService.prototype.trans_lat_lon_end = function (latitude, longitude) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Latitude', latitude);
-        headers.append('Longitude', longitude);
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this._http.get("http://127.0.0.1:8000/trans_lat_long_in_end/", options)
-            .map(function (res) { return res.json(); });
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]();
+        headers.set('Latitude', latitude);
+        headers.set('Longitude', longitude);
+        return this._http.get("http://thebusapi.herokuapp.com/trans_lat_long_in_end/", { headers: headers })
+            .map(function (res) { return res; });
     };
     DetalhesOnibusService.prototype.cal_distantancia_user_veic = function (latitude_user, longitude_user, latitude_bus, longitude_bus) {
         return this._http.get("https://maps.googleapis.com/maps/api/distancematrix/json?mode=bicycling&origins=" + latitude_bus + "," + longitude_bus + "&destinations=" + latitude_user + "," + longitude_user + "&key=AIzaSyBzoi-NFSqX9lo1mCotxpe6tktxlb5j14A")
-            .map(function (res) { return res.json(); });
+            .map(function (res) { return res; });
     };
     DetalhesOnibusService.prototype.mostrar_foto_onibus = function (numvec) {
         return this._http.get("http://onibusbrasil.com/ajax/busca.php?o1=&o2=" + numvec + "&o3=&o4=&o5=&o6=41820&o7=&o8=&o9=&o10=d&o11=1&o12=15&o13=1&o14=0&o15=")
-            .map(function (res) { return res.json(); });
+            .map(function (res) { return res; });
     };
     DetalhesOnibusService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], DetalhesOnibusService);
     return DetalhesOnibusService;
 }());
@@ -979,7 +1073,7 @@ var DetalhesOnibusService = (function () {
 
 /***/ }),
 
-/***/ 357:
+/***/ 359:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -987,8 +1081,8 @@ var DetalhesOnibusService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rota_service__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rota_service__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1112,28 +1206,29 @@ var RotaComponent = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('map'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */]) === "function" && _a || Object)
     ], RotaComponent.prototype, "mapElement", void 0);
     RotaComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'rota',template:/*ion-inline-start:"C:\theapp\src\pages\rota\rota.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      Veiculo : {{dados.CodigoVeiculo}}\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n <div #map id="map"></div>\n\n</ion-content>'/*ion-inline-end:"C:\theapp\src\pages\rota\rota.component.html"*/
+            selector: 'rota',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\rota\rota.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title>\n\n      Veiculo : {{dados.CodigoVeiculo}}\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n <div #map id="map"></div>\n\n</ion-content>'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\rota\rota.component.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__rota_service__["a" /* RotaService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__rota_service__["a" /* RotaService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__rota_service__["a" /* RotaService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _g || Object])
     ], RotaComponent);
     return RotaComponent;
+    var _a, _b, _c, _d, _e, _f, _g;
 }());
 
 //# sourceMappingURL=rota.component.js.map
 
 /***/ }),
 
-/***/ 358:
+/***/ 360:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RotaService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1150,17 +1245,16 @@ var RotaService = (function () {
         this._http = _http;
     }
     RotaService.prototype.parada_mais_proxima_user = function (latitude, longitude, linha) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]();
         headers.append('Latitude', latitude);
         headers.append('Longitude', longitude);
         headers.append('Linha', linha);
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this._http.get("https://thebusapi.herokuapp.com/linhas/parada_proxima/", options)
-            .map(function (res) { return res.json(); });
+        return this._http.get("https://thebusapi.herokuapp.com/linhas/parada_proxima/", { headers: headers })
+            .map(function (res) { return res; });
     };
     RotaService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], RotaService);
     return RotaService;
 }());
@@ -1169,14 +1263,14 @@ var RotaService = (function () {
 
 /***/ }),
 
-/***/ 359:
+/***/ 361:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FavoritosComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_storage__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1226,7 +1320,7 @@ var FavoritosComponent = (function () {
     };
     FavoritosComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'favoritos',template:/*ion-inline-start:"C:\theapp\src\pages\favoritos\favoritos.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title style="text-align: center">\n\n      Favoritos ({{favoritos.length}})\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n	<ion-list>\n\n	<ion-item-sliding *ngFor="let fav of favoritos">\n\n			  <ion-item>\n\n			    <ion-icon name=\'bus\' item-left [style.color]="{Leste:\'rgb(236,27,36)\',Norte:\'rgb(34,177,75)\',Sul:\'#FFD500\',Sudeste:\'rgb(0,128,254)\',Terminal:\'rgb(0,128,254)\'}[fav.Zona]"></ion-icon>\n\n			  	{{fav.CodigoLinha}} - {{fav.Denomicao}}\n\n			  	<p>\n\n			  		{{fav.Veiculos.length}} Veículo(s) na linha.\n\n			  	</p>\n\n			  </ion-item>\n\n		    <ion-item-options>\n\n                <button ion-button icon-only (click)="deletarFavorito(fav.CodigoLinha,fav)" danger>\n\n                    <ion-icon name="trash"></ion-icon>\n\n                </button>\n\n            </ion-item-options>\n\n	</ion-item-sliding>\n\n	<div *ngIf="favoritos.length == 0">\n\n		<h1 style="text-align: center">Você não possui nenhuma linha como favorita.</h1>\n\n	</div>\n\n	</ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\theapp\src\pages\favoritos\favoritos.component.html"*/
+            selector: 'favoritos',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\favoritos\favoritos.component.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title style="text-align: center">\n\n      Favoritos ({{favoritos.length}})\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n	<ion-list>\n\n	<ion-item-sliding *ngFor="let fav of favoritos">\n\n			  <ion-item>\n\n			    <ion-icon name=\'bus\' item-left [style.color]="{Leste:\'rgb(236,27,36)\',Norte:\'rgb(34,177,75)\',Sul:\'#FFD500\',Sudeste:\'rgb(0,128,254)\',Terminal:\'rgb(0,128,254)\'}[fav.Zona]"></ion-icon>\n\n			  	{{fav.CodigoLinha}} - {{fav.Denomicao}}\n\n			  	<p>\n\n			  		{{fav.Veiculos.length}} Veículo(s) na linha.\n\n			  	</p>\n\n			  </ion-item>\n\n		    <ion-item-options>\n\n                <button ion-button icon-only (click)="deletarFavorito(fav.CodigoLinha,fav)" danger>\n\n                    <ion-icon name="trash"></ion-icon>\n\n                </button>\n\n            </ion-item-options>\n\n	</ion-item-sliding>\n\n	<div *ngIf="favoritos.length == 0">\n\n		<h1 style="text-align: center">Você não possui nenhuma linha como favorita.</h1>\n\n	</div>\n\n	</ion-list>\n\n</ion-content>'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\favoritos\favoritos.component.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */]])
     ], FavoritosComponent);
@@ -1237,15 +1331,15 @@ var FavoritosComponent = (function () {
 
 /***/ }),
 
-/***/ 360:
+/***/ 362:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Paradas; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paradas_service__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_paradas_detalhes_paradas_component__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paradas_service__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_paradas_detalhes_paradas_component__ = __webpack_require__(364);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(65);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1335,7 +1429,7 @@ var Paradas = (function () {
     };
     Paradas = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-contact',template:/*ion-inline-start:"C:\theapp\src\pages\paradas\paradas.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title style="text-align: center">\n\n      Paradas\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n      <img style="margin: auto; display: block;" src="http://lh4.ggpht.com/_oQ-XxhlT3-8/SmUcWpygazI/AAAAAAAAA6k/Zg5ZVj66OHE/Parada%20de%20%C3%B4nibus_thumb%5B3%5D.png">\n\n        <p>Para localizar as paradas de onibus de Teresina é bem simples. Selecione abaixo uma opção, caso queira encontrar a parada mais proxima da sua atual localização, ou veja todas as paradas de uma determinada linha.</p>\n\n       <button (click)="parada_mais_proxima()" ion-button full icon-left>\n\n        <ion-icon name="locate"></ion-icon>\n\n          Parada mais proxima\n\n       </button>\n\n        <button (click)="raio_paradas_mais_proximas()" color="danger" ion-button full icon-left>\n\n        <ion-icon name="radio-button-off"></ion-icon>\n\n          Raio com as paradas mais proximas\n\n       </button>\n\n        <button (click)="alerta_parada()" ion-button full color="secondary" icon-left>\n\n        <ion-icon name="bus"></ion-icon>\n\n          Todas as paradas de uma linha\n\n       </button>\n\n </ion-content>\n\n'/*ion-inline-end:"C:\theapp\src\pages\paradas\paradas.html"*/
+            selector: 'page-contact',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\paradas\paradas.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title style="text-align: center">\n\n      Paradas\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n      <img style="margin: auto; display: block;" src="http://lh4.ggpht.com/_oQ-XxhlT3-8/SmUcWpygazI/AAAAAAAAA6k/Zg5ZVj66OHE/Parada%20de%20%C3%B4nibus_thumb%5B3%5D.png">\n\n        <p>Para localizar as paradas de onibus de Teresina é bem simples. Selecione abaixo uma opção, caso queira encontrar a parada mais proxima da sua atual localização, ou veja todas as paradas de uma determinada linha.</p>\n\n       <button (click)="parada_mais_proxima()" ion-button full icon-left>\n\n        <ion-icon name="locate"></ion-icon>\n\n          Parada mais proxima\n\n       </button>\n\n        <button (click)="raio_paradas_mais_proximas()" color="danger" ion-button full icon-left>\n\n        <ion-icon name="radio-button-off"></ion-icon>\n\n          Raio com as paradas mais proximas\n\n       </button>\n\n        <button (click)="alerta_parada()" ion-button full color="secondary" icon-left>\n\n        <ion-icon name="bus"></ion-icon>\n\n          Todas as paradas de uma linha\n\n       </button>\n\n </ion-content>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\paradas\paradas.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__paradas_service__["a" /* ParadasService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__["a" /* Geolocation */]])
     ], Paradas);
@@ -1346,14 +1440,14 @@ var Paradas = (function () {
 
 /***/ }),
 
-/***/ 361:
+/***/ 363:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParadasService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1373,28 +1467,29 @@ var ParadasService = (function () {
     }
     ParadasService.prototype.pegar_linha_especifica = function (num) {
         return this._http.get("https://thebusapi.herokuapp.com/parada_especifica/" + num)
-            .map(function (res) { return res.json(); });
+            .map(function (res) { return res; });
     };
     ParadasService.prototype.parada_mais_proxima = function (latitude, longitude) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]();
         headers.append('Latitude', latitude);
-        headers.append('Longitude', longitude);
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this._http.get("https://thebusapi.herokuapp.com/parada_proxima/", options)
-            .map(function (res) { return res.json(); });
+        headers.append('HTTP_LONGITUDE', longitude);
+        console.log(headers);
+        return this._http.get("https://thebusapi.herokuapp.com/parada_proxima/", { headers: headers })
+            .map(function (res) { return res; });
     };
     ParadasService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], ParadasService);
     return ParadasService;
+    var _a;
 }());
 
 //# sourceMappingURL=paradas.service.js.map
 
 /***/ }),
 
-/***/ 362:
+/***/ 364:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1402,8 +1497,8 @@ var ParadasService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_paradas_service__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalhes_paradas_service__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(45);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1608,7 +1703,7 @@ var DetalhesParadas = (function () {
     ], DetalhesParadas.prototype, "mapElement", void 0);
     DetalhesParadas = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'paradas',template:/*ion-inline-start:"C:\theapp\src\pages\detalhes_paradas\detalhes_paradas.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title *ngIf="dados?.Linha" style="text-align: center">\n\n      {{dados.Linha?.Denomicao}}\n\n    </ion-title>\n\n    <ion-title *ngIf="dados?.Denomicao" style="text-align: center">\n\n      {{dados.Denomicao}}\n\n    </ion-title>\n\n    <ion-title *ngIf="!dados" style="text-align: center">\n\n      Defina o Tamanho do Raio\n\n    </ion-title>\n\n  </ion-navbar> \n\n  <ion-toolbar no-border-top>\n\n    <ion-segment [(ngModel)]="menu">\n\n      <ion-segment-button value="detalhes">\n\n        Detalhes\n\n      </ion-segment-button>\n\n      <ion-segment-button value="mapa">\n\n        Mapa\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n\n\n\n\n</ion-header>\n\n<ion-content>\n\n\n\n <ion-fab [hidden]="menu == \'detalhes\'" right top *ngIf="dados?.Linha">\n\n      <button ion-fab secondary class="fab-map" color="appcolor">\n\n        <ion-icon name=\'bus\'></ion-icon>\n\n        <h4>{{dados.Paradas?.length}}</h4>\n\n      </button>\n\n  </ion-fab>\n\n\n\n\n\n\n\n  \n\n<ion-fab right top *ngIf="modificou && menu==\'mapa\'" (click)="mostrarParadasRaio()">\n\n   <button right top ion-button color="danger" round>Mostrar Paradas</button>\n\n</ion-fab>\n\n\n\n\n\n<div *ngIf="menu == \'detalhes\'">\n\n    <ion-list no-border *ngIf="dados?.Denomicao">\n\n\n\n      <ion-item>\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{dados.Denomicao}}\n\n         <p>This town ain\'t big enough for the two of us!</p>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list *ngIf="dados?.Linha">\n\n\n\n      <ion-item *ngFor="let item of dados.Paradas">\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{item.Denomicao}}\n\n         <p>{{item.Endereco}}</p>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n\n\n    <ion-list *ngIf="paradas_radio">\n\n      <ion-item *ngFor="let item of paradas_radio">\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{item.Denomicao}}\n\n         <p>{{item.Endereco}}</p>\n\n          <ion-note item-right>{{item.CodigoParada}}</ion-note>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n\n\n    <div *ngIf="menu == \'detalhes\' && this.circle && !paradas_radio">\n\n         <h1 style="text-align: center">Coloque um valor para o raio e aperte em "mostrar paradas".</h1>\n\n    </div>\n\n \n\n\n\n\n\n\n\n\n\n</div>\n\n\n\n\n\n <div #map id="map" [hidden]="menu == \'detalhes\'">\n\n     \n\n </div>\n\n\n\n\n\n\n\n\n\n  \n\n</ion-content>\n\n\n\n<ion-footer *ngIf="!dados && menu==\'mapa\'">\n\n  <ion-toolbar>\n\n  <ion-item>\n\n   <ion-range min="0" color="danger" max="1000" step="1" [(ngModel)]="brightness" (ionChange)="aumentar_circulo($event)">\n\n     <ion-icon small range-left name="radio-button-off"></ion-icon>\n\n     <ion-icon range-right name="radio-button-off"></ion-icon>\n\n   </ion-range>\n\n  </ion-item>\n\n  </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\theapp\src\pages\detalhes_paradas\detalhes_paradas.html"*/
+            selector: 'paradas',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\detalhes_paradas\detalhes_paradas.html"*/'<ion-header>\n\n  <ion-navbar color="appcolor">\n\n    <ion-title *ngIf="dados?.Linha" style="text-align: center">\n\n      {{dados.Linha?.Denomicao}}\n\n    </ion-title>\n\n    <ion-title *ngIf="dados?.Denomicao" style="text-align: center">\n\n      {{dados.Denomicao}}\n\n    </ion-title>\n\n    <ion-title *ngIf="!dados" style="text-align: center">\n\n      Defina o Tamanho do Raio\n\n    </ion-title>\n\n  </ion-navbar> \n\n  <ion-toolbar no-border-top>\n\n    <ion-segment [(ngModel)]="menu">\n\n      <ion-segment-button value="detalhes">\n\n        Detalhes\n\n      </ion-segment-button>\n\n      <ion-segment-button value="mapa">\n\n        Mapa\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n\n\n\n\n</ion-header>\n\n<ion-content>\n\n\n\n <ion-fab [hidden]="menu == \'detalhes\'" right top *ngIf="dados?.Linha">\n\n      <button ion-fab secondary class="fab-map" color="appcolor">\n\n        <ion-icon name=\'bus\'></ion-icon>\n\n        <h4>{{dados.Paradas?.length}}</h4>\n\n      </button>\n\n  </ion-fab>\n\n\n\n\n\n\n\n  \n\n<ion-fab right top *ngIf="modificou && menu==\'mapa\'" (click)="mostrarParadasRaio()">\n\n   <button right top ion-button color="danger" round>Mostrar Paradas</button>\n\n</ion-fab>\n\n\n\n\n\n<div *ngIf="menu == \'detalhes\'">\n\n    <ion-list no-border *ngIf="dados?.Denomicao">\n\n\n\n      <ion-item>\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{dados.Denomicao}}\n\n         <p>This town ain\'t big enough for the two of us!</p>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list *ngIf="dados?.Linha">\n\n\n\n      <ion-item *ngFor="let item of dados.Paradas">\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{item.Denomicao}}\n\n         <p>{{item.Endereco}}</p>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n\n\n    <ion-list *ngIf="paradas_radio">\n\n      <ion-item *ngFor="let item of paradas_radio">\n\n        <ion-icon name=\'bus\' item-left></ion-icon>\n\n         {{item.Denomicao}}\n\n         <p>{{item.Endereco}}</p>\n\n          <ion-note item-right>{{item.CodigoParada}}</ion-note>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n\n\n    <div *ngIf="menu == \'detalhes\' && this.circle && !paradas_radio">\n\n         <h1 style="text-align: center">Coloque um valor para o raio e aperte em "mostrar paradas".</h1>\n\n    </div>\n\n \n\n\n\n\n\n\n\n\n\n</div>\n\n\n\n\n\n <div #map id="map" [hidden]="menu == \'detalhes\'">\n\n     \n\n </div>\n\n\n\n\n\n\n\n\n\n  \n\n</ion-content>\n\n\n\n<ion-footer *ngIf="!dados && menu==\'mapa\'">\n\n  <ion-toolbar>\n\n  <ion-item>\n\n   <ion-range min="0" color="danger" max="1000" step="1" [(ngModel)]="brightness" (ionChange)="aumentar_circulo($event)">\n\n     <ion-icon small range-left name="radio-button-off"></ion-icon>\n\n     <ion-icon range-right name="radio-button-off"></ion-icon>\n\n   </ion-range>\n\n  </ion-item>\n\n  </ion-toolbar>\n\n</ion-footer>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\detalhes_paradas\detalhes_paradas.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3__detalhes_paradas_service__["a" /* DetalhesParadasService */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
     ], DetalhesParadas);
@@ -1619,14 +1714,14 @@ var DetalhesParadas = (function () {
 
 /***/ }),
 
-/***/ 363:
+/***/ 365:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DetalhesParadasService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1645,12 +1740,12 @@ var DetalhesParadasService = (function () {
         this._http = _http;
     }
     DetalhesParadasService.prototype.calcular_raio_paradas = function () {
-        return this._http.get("http://127.0.0.1:8000/paradas/").
-            map(function (res) { return res.json(); });
+        return this._http.get("http://thebusapi.herokuapp.com/paradas/").
+            map(function (res) { return res; });
     };
     DetalhesParadasService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], DetalhesParadasService);
     return DetalhesParadasService;
 }());
@@ -1659,14 +1754,14 @@ var DetalhesParadasService = (function () {
 
 /***/ }),
 
-/***/ 364:
+/***/ 366:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Linhas; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__linhas_service__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__linhas_service__ = __webpack_require__(367);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1782,7 +1877,7 @@ var Linhas = (function () {
     };
     Linhas = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-about',template:/*ion-inline-start:"C:\theapp\src\pages\linhas\linhas.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="appcolor">\n\n  <ion-title [hidden] = "!mostrar_pesquisa" style="text-align: center;">Linhas</ion-title>\n\n  <ion-buttons end>\n\n      <button [hidden] = "!mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = false">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n   <ion-searchbar [hidden] = mostrar_pesquisa\n\n    placeholder="Numero da  linha ex : 517"\n\n	  (ionInput)="onInput($event)"\n\n	  (ionCancel)="onCancel($event)">\n\n	</ion-searchbar>\n\n	<ion-buttons end>\n\n      <button [hidden] = "mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = true">\n\n        <ion-icon name="close"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n<ion-list>\n\n<ion-list-header color="appcolor">\n\n	Zona Sul\n\n</ion-list-header>\n\n<div *ngFor="let item of linha; let i = index">\n\n	\n\n	 <ion-item *ngIf="item.zona == \'Sul\'">\n\n		    <ion-icon style="color : #FFD500" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div>\n\n<ion-list-header color="appcolor">\n\n	Zona Sudeste\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Sudeste\'">\n\n		    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Zona Leste\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Leste\'">\n\n		     <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Zona Norte\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Norte\'">\n\n		    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Terminal\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Terminal\'">\n\n		     <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n</ion-list>\n\n\n\n<!--\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Sudeste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of linha">\n\n	    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n	    	 {{item.numero}} -  {{item.denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Sul\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of sul">\n\n	    <ion-icon style="color : rgb(255,255,0)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Leste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of leste">\n\n	    <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Norte\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of norte">\n\n	    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Terminais - Sudeste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of terminal">\n\n	    <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Outros\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of outros">\n\n	    <ion-icon name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list> -->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\theapp\src\pages\linhas\linhas.html"*/
+            selector: 'page-about',template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\pages\linhas\linhas.html"*/'<ion-header>\n\n\n\n  <ion-navbar color="appcolor">\n\n  <ion-title [hidden] = "!mostrar_pesquisa" style="text-align: center;">Linhas</ion-title>\n\n  <ion-buttons end>\n\n      <button [hidden] = "!mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = false">\n\n        <ion-icon name="search"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n   <ion-searchbar [hidden] = mostrar_pesquisa\n\n    placeholder="Numero da  linha ex : 517"\n\n	  (ionInput)="onInput($event)"\n\n	  (ionCancel)="onCancel($event)">\n\n	</ion-searchbar>\n\n	<ion-buttons end>\n\n      <button [hidden] = "mostrar_pesquisa" ion-button icon-only (click)="mostrar_pesquisa = true">\n\n        <ion-icon name="close"></ion-icon>\n\n      </button>\n\n   </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n<ion-list>\n\n<ion-list-header color="appcolor">\n\n	Zona Sul\n\n</ion-list-header>\n\n<div *ngFor="let item of linha; let i = index">\n\n	\n\n	 <ion-item *ngIf="item.zona == \'Sul\'">\n\n		    <ion-icon style="color : #FFD500" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div>\n\n<ion-list-header color="appcolor">\n\n	Zona Sudeste\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Sudeste\'">\n\n		    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Zona Leste\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Leste\'">\n\n		     <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Zona Norte\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Norte\'">\n\n		    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n<ion-list-header color="appcolor">\n\n	Terminal\n\n</ion-list-header>\n\n<div *ngFor="let item of linha">\n\n	 <ion-item *ngIf="item.zona == \'Terminal\'">\n\n		     <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n		    	 {{item.numero}} -  {{item.denomicao}}\n\n	</ion-item>\n\n</div> \n\n</ion-list>\n\n\n\n<!--\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Sudeste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of linha">\n\n	    <ion-icon  style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n	    	 {{item.numero}} -  {{item.denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Sul\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of sul">\n\n	    <ion-icon style="color : rgb(255,255,0)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Leste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of leste">\n\n	    <ion-icon style="color : rgb(236,27,36)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Norte\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of norte">\n\n	    <ion-icon style="color : rgb(34,177,75)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Terminais - Sudeste\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of terminal">\n\n	    <ion-icon style="color : rgb(0,128,254)" name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list>\n\n	<ion-list>\n\n	<ion-list-header>\n\n    	Outros\n\n  	</ion-list-header>\n\n	 <ion-item *ngFor="let item of outros">\n\n	    <ion-icon name="bus" item-left></ion-icon>\n\n	    	 {{item.Numero}} -  {{item.Denomicao}}\n\n	  </ion-item>\n\n	</ion-list> -->\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\pages\linhas\linhas.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__linhas_service__["a" /* LinhasService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]])
     ], Linhas);
@@ -1793,14 +1888,14 @@ var Linhas = (function () {
 
 /***/ }),
 
-/***/ 365:
+/***/ 367:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LinhasService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1817,47 +1912,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var LinhasService = (function () {
     function LinhasService(_http) {
         this._http = _http;
-        this.url = "https://thebusapi.herokuapp.co/zona/";
+        this.url = "https://thebusapi.herokuapp.com/linha/zona/";
     }
     LinhasService.prototype.pegarTodasAsLinhas = function () {
-        return this._http.get("https://thebusapi.herokuapp.com/todasaslinhasestaticas/").map(function (res) { return res.json(); });
+        return this._http.get("https://thebusapi.herokuapp.com/todasaslinhasestaticas/").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaSul = function () {
-        return this._http.get(this.url + "Sul").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Sul").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaSudeste = function () {
-        return this._http.get(this.url + "Sudeste").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Sudeste").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaLeste = function () {
-        return this._http.get(this.url + "Leste").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Leste").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaNorte = function () {
-        return this._http.get(this.url + "Norte").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Norte").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaTerminal = function () {
-        return this._http.get(this.url + "Terminal").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Terminal").map(function (res) { return res; });
     };
     LinhasService.prototype.linhasZonaOutros = function () {
-        return this._http.get(this.url + "Outros").map(function (res) { return res.json(); });
+        return this._http.get(this.url + "Outros").map(function (res) { return res; });
     };
     LinhasService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], LinhasService);
     return LinhasService;
+    var _a;
 }());
 
 //# sourceMappingURL=linhas.service.js.map
 
 /***/ }),
 
-/***/ 366:
+/***/ 368:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(367);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(369);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(373);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1865,40 +1961,41 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 371:
+/***/ 373:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(413);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_tabs_tabs__ = __webpack_require__(693);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_temporeal_temporeal__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_paradas_paradas__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_linhas_linhas__ = __webpack_require__(364);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_configuracoes_configuracoes_component__ = __webpack_require__(354);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_reclamacoes_reclamacoes_component__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_detalhes_paradas_detalhes_paradas_component__ = __webpack_require__(362);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_detalhes_onibus_detalhes_onibus_component__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_rota_rota_component__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_favoritos_favoritos_component__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_component__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_tabs_tabs__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_temporeal_temporeal__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_paradas_paradas__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_linhas_linhas__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_platform_browser__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_configuracoes_configuracoes_component__ = __webpack_require__(356);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_reclamacoes_reclamacoes_component__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_detalhes_paradas_detalhes_paradas_component__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_detalhes_onibus_detalhes_onibus_component__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_rota_rota_component__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_favoritos_favoritos_component__ = __webpack_require__(361);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_criar_publicacao_criar_publicacao__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_storage__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_geolocation__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_status_bar__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_splash_screen__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_native_status_bar__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_splash_screen__ = __webpack_require__(352);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_camera__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_photo_library__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_temporeal_temporeal_service__ = __webpack_require__(353);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_linhas_linhas_service__ = __webpack_require__(365);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_paradas_paradas_service__ = __webpack_require__(361);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_detalhes_paradas_detalhes_paradas_service__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_detalhes_onibus_detalhes_onibus_service__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_rota_rota_service__ = __webpack_require__(358);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_reclamacoes_reclamacoes_service__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_temporeal_temporeal_service__ = __webpack_require__(355);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_linhas_linhas_service__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_paradas_paradas_service__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_detalhes_paradas_detalhes_paradas_service__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_detalhes_onibus_detalhes_onibus_service__ = __webpack_require__(358);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_rota_rota_service__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_reclamacoes_reclamacoes_service__ = __webpack_require__(311);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_criar_publicacao_criar_publicacao_service__ = __webpack_require__(218);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1929,6 +2026,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 //Services
+
 
 
 
@@ -1993,6 +2091,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_26__pages_detalhes_onibus_detalhes_onibus_service__["a" /* DetalhesOnibusService */],
                 __WEBPACK_IMPORTED_MODULE_27__pages_rota_rota_service__["a" /* RotaService */],
                 __WEBPACK_IMPORTED_MODULE_28__pages_reclamacoes_reclamacoes_service__["a" /* ReclamacaoService */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_criar_publicacao_criar_publicacao_service__["a" /* CriarPublicacaoService */],
                 { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* IonicErrorHandler */] }
             ]
         })
@@ -2004,16 +2103,16 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 413:
+/***/ 694:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(258);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_reclamacoes_reclamacoes_component__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__ = __webpack_require__(353);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2033,7 +2132,7 @@ var MyApp = (function () {
         var _this = this;
         this.statusBar = statusBar;
         this.splashScreen = splashScreen;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_4__pages_reclamacoes_reclamacoes_component__["a" /* ReclamacaoComponent */];
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_4__pages_tabs_tabs__["a" /* TabsPage */];
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
@@ -2042,7 +2141,7 @@ var MyApp = (function () {
         });
     }
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\theapp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\theapp\src\app\app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\matheus\app\theapp\src\app\app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n\n'/*ion-inline-end:"C:\Users\matheus\app\theapp\src\app\app.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
@@ -2051,49 +2150,7 @@ var MyApp = (function () {
 
 //# sourceMappingURL=app.component.js.map
 
-/***/ }),
-
-/***/ 693:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__temporeal_temporeal__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__paradas_paradas__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__linhas_linhas__ = __webpack_require__(364);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var TabsPage = (function () {
-    function TabsPage() {
-        // this tells the tabs component which Pages
-        // should be each tab's root Page
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__temporeal_temporeal__["a" /* TempoReal */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_2__paradas_paradas__["a" /* Paradas */];
-        this.tab3Root = __WEBPACK_IMPORTED_MODULE_3__linhas_linhas__["a" /* Linhas */];
-    }
-    TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\theapp\src\pages\tabs\tabs.html"*/'<ion-tabs color="appcolor">\n\n  <ion-tab [root]="tab1Root" tabTitle="Tempo Real" tabIcon="map" tabBadge="3" tabBadgeStyle="danger"></ion-tab>\n\n  <ion-tab [root]="tab2Root" tabTitle="Paradas" tabIcon="bus"></ion-tab>\n\n  <ion-tab [root]="tab3Root" tabTitle="Linhas" tabIcon="information"></ion-tab>\n\n</ion-tabs>\n\n'/*ion-inline-end:"C:\theapp\src\pages\tabs\tabs.html"*/
-        }),
-        __metadata("design:paramtypes", [])
-    ], TabsPage);
-    return TabsPage;
-}());
-
-//# sourceMappingURL=tabs.js.map
-
 /***/ })
 
-},[366]);
+},[368]);
 //# sourceMappingURL=main.js.map

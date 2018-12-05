@@ -13,7 +13,7 @@ declare var matheus : 'henrique';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = ReclamacaoComponent;
+  rootPage = TabsPage;
 
   constructor(platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen) {
     platform.ready().then(() => {

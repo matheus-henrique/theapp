@@ -11,7 +11,7 @@ export class ReclamacaoService {
 
 
     get_all_reclamacao(){
-        return this._http.get("http://localhost:8000/reclamacoes/")
+        return this._http.get("http://thebusapi.herokuapp.com/reclamacoes/")
 			.map((res) => res)
     }
 

@@ -50,7 +50,7 @@
   "cordova-plugin-camera": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-camera@4.0.3"
+      "id": "cordova-plugin-camera@^4.0.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -82,7 +82,7 @@
   "cordova-plugin-geolocation": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-geolocation@4.0.1"
+      "id": "cordova-plugin-geolocation@^4.0.1"
     },
     "is_top_level": true,
     "variables": {}
@@ -98,7 +98,7 @@
   "cordova-plugin-photo-library": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-photo-library"
+      "id": "cordova-plugin-photo-library@^2.1.1"
     },
     "is_top_level": true,
     "variables": {}

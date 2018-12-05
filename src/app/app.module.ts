@@ -32,6 +32,7 @@ import { DetalhesParadasService } from '../pages/detalhes_paradas/detalhes_parad
 import { DetalhesOnibusService } from '../pages/detalhes_onibus/detalhes_onibus.service';
 import { RotaService } from '../pages/rota/rota.service';
 import { ReclamacaoService } from '../pages/reclamacoes/reclamacoes.service';
+import { CriarPublicacaoService } from '../pages/criar-publicacao/criar-publicacao.service';
 import { Storage } from '@ionic/storage';
 
 
@@ -85,6 +86,7 @@ import { Storage } from '@ionic/storage';
     DetalhesOnibusService,
     RotaService, 
     ReclamacaoService,
+    CriarPublicacaoService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

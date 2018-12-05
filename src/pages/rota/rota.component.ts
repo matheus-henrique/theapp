@@ -79,9 +79,7 @@ export class RotaComponent implements OnInit {
 			 
 			 loading.present();
 			 this.rs.parada_mais_proxima_user(position.coords.latitude, position.coords.longitude, "0"+this.dados.Linha).subscribe(
-			 	res => {
-			 		
-
+			 	(res) => {
 					 let request = { 
 					 	origin : new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
 					 	destination : new google.maps.LatLng(this.dados.Lat,this.dados.Long),

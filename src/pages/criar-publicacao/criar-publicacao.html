@@ -17,11 +17,11 @@
     <ion-list>
         <ion-item>
             <ion-buttons center>
-                <button ion-button larger (click)="takeGallery()">
+                <button ion-button larger (click)="takePicture(1)">
                   <ion-icon name="images"></ion-icon>
                 </button>
               </ion-buttons> <ion-buttons center>
-                  <button ion-button larger (click)="takePicture()">
+                  <button ion-button larger (click)="takePicture(0)">
                     <ion-icon name="camera"></ion-icon>
                   </button>
                 </ion-buttons>
@@ -32,10 +32,10 @@
        
 
         <ion-item>
-            <ion-textarea placeholder="Problemas ? Conte para gente"></ion-textarea>
+            <ion-textarea [(ngModel)]="msgproblema" placeholder="Problemas ? Conte para gente"></ion-textarea>
           </ion-item>
       
 
-          <button ion-button full>Enviar</button>
+          <button ion-button full (click)="enviarPublicacao()">Enviar</button>
       </ion-list>
 </ion-content>
